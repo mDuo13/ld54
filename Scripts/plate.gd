@@ -196,27 +196,41 @@ func _on_input_event(_viewport, event, _shape_idx):
 		print("Encircled?:", is_encircled(map_coords))
 		#cycle_food_at(map_coords)
 
+func test_piece_placement(base_coords:Vector2i, cells2d: Array, color: String) -> Array[Vector2i]:
+	var q_change = []
+	for dx in range(cells2d.size()):
+		for dy in range(cells2d[dx].size()):
+			if not cells2d[dx][dy]:
+				# not a filled cell
+				continue
+			var cell_coords = base_coords + Vector2i(dx, dy)
+		
+			if oob(cell_coords):
+				print("oob piece drop @ square", cell_coords)
+				return []
+			if is_occupied(cell_coords):
+				print("blocked @", cell_coords)
+				return []
+			if adacent_to_color(cell_coords, color):
+				print("adjacency problem @", cell_coords)
+				return []
+			q_change.append(cell_coords)
+	return q_change
+
 func _on_piece_drop(pos: Vector2i, piece: Piece):
 	var coords = map_coords_of(pos, true) # based on top left corner of piece hitbox
+	var color : String = piece.piece.type
 	#TODO: handle rotation, maybe some other stuff
-	var q_change = []
+	
 	var bump_score = 0
-	for i in range(piece.piece.cells.size()):
-		if not piece.piece.cells[i]:
-			continue
-		var cell_coords = coords + Vector2i(i%4, i/4)
-		if oob(cell_coords):
-			print("oob piece drop @ square", cell_coords)
-			return
-		if is_occupied(cell_coords):
-			print("blocked @", cell_coords)
-			return
-		if adacent_to_color(cell_coords, piece.piece.type):
-			print("adjacency problem @", cell_coords)
-			return
-		q_change.append(cell_coords)
+	var cells2d : Array = TBD#TODO: piece.piece.cells?? ### grumble, "nested typed collections" like Array[Array[int]] aren't supported
+	var q_change = test_piece_placement(coords, cells2d, color)
+	
+	if not q_change.size():
+		return
+	
 	for set_coords in q_change:
-		put_food_at(piece.piece.type, set_coords)
+		put_food_at(color, set_coords)
 		if scoring_at(set_coords) == 1: # Regular space, add to score
 			bump_score += piece.score_value()
 	if bump_score:
