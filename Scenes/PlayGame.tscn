@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dmla031dku8le"]
+[gd_scene load_steps=7 format=3 uid="uid://dmla031dku8le"]
 
 [ext_resource type="Texture2D" uid="uid://caupoabxxmf2p" path="res://Assets/Tile.png" id="1_7y3ry"]
 [ext_resource type="Script" path="res://Scripts/plate_setup.gd" id="2_nrm2g"]
 [ext_resource type="Script" path="res://Scripts/conveyor_setup.gd" id="3_un6u0"]
+[ext_resource type="Script" path="res://Scripts/piece_manager.gd" id="4_g3j14"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ynqv4"]
 texture = ExtResource("1_7y3ry")
@@ -31,3 +32,6 @@ script = ExtResource("3_un6u0")
 
 [node name="MainCamera" type="Camera2D" parent="."]
 anchor_mode = 0
+
+[node name="PieceManager" type="Node2D" parent="."]
+script = ExtResource("4_g3j14")
