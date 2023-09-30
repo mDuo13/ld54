@@ -1,0 +1,15 @@
+
+required:
+    Let's eat (end game) button
+    done with cart button
+    detect if a special is encircled
+
+nice to have:
+    unplaceable spaces
+    bgm
+    title screen
+    running score display
+
+stretch goals:
+    randomized scoring objectives
+    
