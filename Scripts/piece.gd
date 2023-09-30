@@ -29,8 +29,8 @@ var pieces = {
 			Vector2(0, 60)
 		],
 		"cells" : [
-			1, 1, 0, 0,
-			0, 1, 0, 0 # Rome's note: I changed this to match the sprite
+			[1, 1, 0, 0],
+			[0, 1, 0, 0] # Rome's note: I changed this to match the sprite
 		],
 		"type" : "basic",
 		"points" : 1
@@ -46,8 +46,8 @@ var pieces = {
 			Vector2(0, 120)
 		],
 		"cells" : [
-			1, 1, 1, 0,
-			1, 0, 0, 0
+			[1, 1, 1, 0],
+			[1, 0, 0, 0]
 		],
 		"type" : "advanced",
 		"points" : 2
@@ -63,8 +63,8 @@ var pieces = {
 			Vector2(0, 60)
 		],
 		"cells" : [
-			1, 1, 1, 0,
-			0, 0, 1, 0
+			[1, 1, 1, 0],
+			[0, 0, 1, 0]
 		],
 		"type" : "advanced",
 		"points" : 2
@@ -82,8 +82,8 @@ var pieces = {
 			Vector2(0, 60)
 		],
 		"cells" : [
-			1, 1, 1, 0,
-			0, 1, 0, 0
+			[1, 1, 1, 0],
+			[0, 1, 0, 0]
 		],
 		"type" : "advanced",
 		"points" : 2
@@ -100,8 +100,8 @@ var pieces = {
 			Vector2(0, 60)
 		],
 		"cells" : [
-			0, 1, 1, 0,
-			1, 1, 0, 0
+			[0, 1, 1, 0],
+			[1, 1, 0, 0]
 		],
 		"type" : "advanced",
 		"points" : 2
@@ -119,8 +119,8 @@ var pieces = {
 			Vector2(0, 60)
 		],
 		"cells" : [
-			1, 1, 0, 0,
-			0, 1, 1, 0
+			[1, 1, 0, 0],
+			[0, 1, 1, 0]
 		],
 		"type" : "advanced",
 		"points" : 2
@@ -134,8 +134,8 @@ var pieces = {
 			Vector2(0, 60)
 		],
 		"cells" : [
-			1, 1, 1, 1,
-			0, 0, 0, 0
+			[1, 1, 1, 1],
+			[0, 0, 0, 0]
 		],
 		"type" : "advanced",
 		"points" : 2
@@ -149,8 +149,8 @@ var pieces = {
 			Vector2(0, 120)
 		],
 		"cells" : [
-			1, 1, 0, 0,
-			1, 1, 0, 0
+			[1, 1, 0, 0],
+			[1, 1, 0, 0]
 		],
 		"type" : "advanced",
 		"points" : 2
@@ -191,6 +191,26 @@ func set_piece_type(t: String = ""):
 func score_value():
 	return piece.piece["points"]
 
+func print_matrix(arr):
+	for row in arr:
+		print(row)
+
+func cells_counterclockwise():
+	var matrix = []
+	for y in range(len(piece["cells"][0])):
+		matrix.append([])
+		for x in range(len(piece["cells"])):
+			matrix[y].append(0)
+	for y in range(len(piece["cells"])):
+		for x in range(len(piece["cells"][0])):
+			matrix[len(piece["cells"][0]) - x - 1][y] = piece["cells"][y][x]
+	piece["cells"] = matrix
+
+func cells_clockwise():
+	cells_counterclockwise()
+	cells_counterclockwise()
+	cells_counterclockwise()
+
 func _process(_delta):
 	if (mouse_over && !dragging && Input.is_action_just_pressed("select")):
 		dragging = true
@@ -202,9 +222,11 @@ func _process(_delta):
 		dragging = false
 	if dragging == true && Input.is_action_just_pressed("rotate_clockwise"):
 		self.rotation += PI / 2
+		cells_clockwise()
 		
 	if dragging == true && Input.is_action_just_pressed("rotate_counterclockwise"):
 		self.rotation -= PI / 2
+		cells_counterclockwise()
 
 func _mouse_enter():
 	mouse_over = true
