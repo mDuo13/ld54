@@ -30,6 +30,13 @@ var TILE_TYPES = {
 	"food_green": Vector2(2,3)
 }
 
+const FOOD_TILES = [
+	"",
+	"food_pink",
+	"food_green",
+	"blocked"
+]
+
 @export var bag_contents := {
 	"scoring": 40,
 	"special_1": 1,
@@ -40,6 +47,11 @@ var TILE_TYPES = {
 func _ready():
 	randomize_board()
 	place_blockers()
+
+func oob(coords: Vector2i) -> bool:
+	if coords.x < 0 or coords.y < 0 or coords.x >= GRID_WIDTH or coords.y >= GRID_HEIGHT:
+		return true
+	return false
 
 func randomize_board():
 	var tile_bag = []
@@ -73,19 +85,16 @@ func place_blockers():
 		var loc
 		while true:
 			loc = Vector2i(randi_range(0,GRID_WIDTH), randi_range(0,GRID_HEIGHT))
-			if loc.x < 0 or loc.y < 0 or loc.x >= GRID_WIDTH or loc.y >= GRID_WIDTH:
-				continue # out of bounds, try again
-			if scoring_at(loc) > 1 or food_color_at(loc) == 3:
-				continue # don't overwrite bonus spaces or other blockers
+			if oob(loc) or scoring_at(loc) > 1 or food_color_at(loc) == 3:
+				# try again if out of bounds or would overwrite a special or blocker
+				continue
 			break
 		put_food_at("blocked", loc)
 		for j in range(BLOCKER_SIZE-1):
 			var new_loc
 			while true:
 				new_loc = loc + GROW_VECS[randi()%GROW_VECS.size()]
-				if new_loc.x < 0 or new_loc.y < 0 or new_loc.x >= GRID_WIDTH or new_loc.x >= GRID_HEIGHT:
-					continue
-				if scoring_at(new_loc) > 1 or food_color_at(new_loc) == 3:
+				if oob(new_loc) or scoring_at(new_loc) > 1 or food_color_at(new_loc) == 3:
 					continue
 				break
 			loc = new_loc
@@ -108,8 +117,40 @@ func put_food_at(food : String, coords: Vector2i):
 	var food_tile = TILE_TYPES[food]
 	$PlateGrid.set_cell(LAYER_FOOD, coords, TILE_SRC, food_tile)
 
+func is_encircled(coords: Vector2i):
+	assert (not oob(coords))
+	var gap_found = false
+	for dx in range(-1, 2):
+		for dy in range(-1,2):
+			if dx==0 and dy==0:
+				continue #skip self
+			var newloc = coords + Vector2i(dx, dy)
+			if oob(newloc):
+				continue # edges work for encircling
+			if scoring_at(newloc) > 1: #special spaces work
+				continue
+			if food_color_at(newloc) > 0:
+				continue
+			# No valid encircler there!
+			gap_found = true
+			break
+	
+	return not gap_found
+
+func cycle_food_at(coords: Vector2i): #debug helper
+	var food_color = food_color_at(coords) + 1
+	if food_color > 3:#max food num
+		food_color = 0
+		$PlateGrid.erase_cell(LAYER_FOOD, coords)
+	else:
+		$PlateGrid.set_cell(LAYER_FOOD, coords, TILE_SRC, TILE_TYPES[FOOD_TILES[food_color]])
+	
+		
+
 func _on_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed:
 		print("Mouse Click at: ", event.position)
 		var map_coords = $PlateGrid.local_to_map( to_local(event.position) )
-		print(scoring_at(map_coords))
+		print("Points:",scoring_at(map_coords))
+		print("Encircled?:", is_encircled(map_coords))
+		cycle_food_at(map_coords)
