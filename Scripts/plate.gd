@@ -224,7 +224,8 @@ func _on_input_event(_viewport, event, _shape_idx):
 		print("Encircled?:", is_encircled(map_coords))
 		#cycle_food_at(map_coords)
 
-func test_piece_placement(base_coords:Vector2i, cells2d: Array, color: String) -> Array[Vector2i]:
+func test_piece_placement(base_coords:Vector2i, cells2d: Array, color: String) -> Array:
+	## Really the return type is Array[Vector2i] except sometimes it's empty
 	var q_change = []
 	for dx in range(cells2d.size()):
 		for dy in range(cells2d[dx].size()):
@@ -252,6 +253,7 @@ func _on_piece_drop(pos: Vector2i, piece: Piece):
 	
 	var bump_score = 0
 	var cells2d : Array = piece.piece.cells#TODO: piece.piece.cells?? ### grumble, "nested typed collections" like Array[Array[int]] aren't supported
+	print(cells2d)
 	var q_change = test_piece_placement(coords, cells2d, color)
 	
 	if not q_change.size():

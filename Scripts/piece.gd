@@ -13,7 +13,7 @@ var pieces = {
 			Vector2(0, 60)
 		],
 		"cells" : [
-			1, 1
+			[1, 1]
 		],
 		"type" : "basic",
 		"points" : 1
@@ -189,7 +189,7 @@ func set_piece_type(t: String = ""):
 	set_piece(p)
 
 func score_value():
-	return piece.piece["points"]
+	return piece["points"]
 
 func print_matrix(arr):
 	for row in arr:
