@@ -225,7 +225,10 @@ func _on_piece_drop(pos: Vector2i, piece: Piece):
 	var _scored_specials = check_for_circled_specials()
 	#TODO: actually do score and animation stuff
 	
-	piece.queue_free() #TODO: disable interactivity instead so the sprite stays
-	#get_node("../PieceManager").add_piece()
+	# snap piece's actual position & make it 
+	piece.position = (Vector2i(piece.position+Vector2(30,30)) / Vector2i(60,60)) * Vector2i(60,60) #TODO: fix magic numbers
+	piece.input_pickable = false
+	piece.modulate.a = 0.4 # temp, for visibility
+	piece.remove_from_group("Unplaced Pieces")
 		
 	print(pos, piece)

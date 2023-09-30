@@ -22,12 +22,12 @@ func make_piece_at(coords, piecetype:String = "") -> Piece:
 	piece_instance.set_position(coords)
 	add_child(piece_instance)
 	piece_instance.connect("piece_drop", get_node("../Plate")._on_piece_drop)
-	piece_instance.add_to_group("Pieces")
+	piece_instance.add_to_group("Unplaced Pieces")
 	return piece_instance
 
 func add_piece(piecetype:String = "") -> void:
 	# Note: this piece count doesn't work as we want if we freed pieces this frame
-	var piece_count = get_tree().get_nodes_in_group("Pieces").size()
+	var piece_count = get_tree().get_nodes_in_group("Unplaced Pieces").size()
 	var offset = Vector2(MARGIN, MARGIN + (piece_count*PIECE_HEIGHT) + (piece_count*MARGIN))
 	make_piece_at($Cart.position + offset, piecetype)
 
@@ -44,7 +44,7 @@ func make_bag() -> void:
 
 
 func _on_pass_butt_pressed():
-	get_tree().call_group("Pieces", "queue_free")
+	get_tree().call_group("Unplaced Pieces", "queue_free")
 	make_bag()
 
 

@@ -1,5 +1,7 @@
 necessary:
-    
+    piece rotation
+    scoring special spaces
+    get export working
 
 nice to have:
     bgm
@@ -11,3 +13,4 @@ nice to have:
 stretch goals:
     randomized scoring objectives
     more balanced board rando (e.g. don't dump all the blockers on the same side)
+    animate cart loading in
