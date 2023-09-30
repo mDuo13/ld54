@@ -1,12 +1,12 @@
-required:
-    Let's eat (end game) button
-    done with cart button
-    detect if a special is encircled
+necessary:
+    
 
 nice to have:
     bgm
     title screen
-    running score display
+    score screen
+    "ghost" piece display with effects for why it's can't be placed?
+    theme?
 
 stretch goals:
     randomized scoring objectives

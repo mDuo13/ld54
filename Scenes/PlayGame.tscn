@@ -1,45 +1,87 @@
-[gd_scene load_steps=10 format=3 uid="uid://dmla031dku8le"]
+[gd_scene load_steps=11 format=3 uid="uid://dmla031dku8le"]
 
 [ext_resource type="Texture2D" uid="uid://caupoabxxmf2p" path="res://Assets/Tile.png" id="1_7y3ry"]
 [ext_resource type="Texture2D" uid="uid://cqpvf6ol0iv1u" path="res://Assets/board_tiles.png" id="2_0m3lk"]
-[ext_resource type="Script" path="res://Scripts/conveyor_setup.gd" id="3_un6u0"]
+[ext_resource type="Texture2D" uid="uid://bvwn3pjlddmfm" path="res://Assets/Cart.png" id="2_ra5wu"]
 [ext_resource type="Script" path="res://Scripts/piece_manager.gd" id="4_g3j14"]
 [ext_resource type="Script" path="res://Scripts/plate.gd" id="5_eb8rb"]
+[ext_resource type="Script" path="res://Scenes/UI.gd" id="6_l581x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8btvs"]
+size = Vector2(600, 600)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ynqv4"]
 texture = ExtResource("1_7y3ry")
 texture_region_size = Vector2i(60, 60)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o66xs"]
 texture = ExtResource("2_0m3lk")
 texture_region_size = Vector2i(60, 60)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
 1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
 1:0/0/custom_data_1 = 3
 2:0/0 = 0
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
 2:0/0/custom_data_0 = 1
 3:0/0 = 0
+3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:0/0/physics_layer_0/angular_velocity = 0.0
 0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
 0:1/0/custom_data_0 = 2
 1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
 1:1/0/custom_data_0 = 2
 2:1/0 = 0
+2:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:1/0/physics_layer_0/angular_velocity = 0.0
 2:1/0/custom_data_0 = 2
 3:1/0 = 0
+3:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:1/0/physics_layer_0/angular_velocity = 0.0
 0:2/0 = 0
+0:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:2/0/physics_layer_0/angular_velocity = 0.0
 1:2/0 = 0
+1:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:2/0/physics_layer_0/angular_velocity = 0.0
 2:2/0 = 0
+2:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:2/0/physics_layer_0/angular_velocity = 0.0
 3:2/0 = 0
+3:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:2/0/physics_layer_0/angular_velocity = 0.0
 0:3/0 = 0
+0:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:3/0/physics_layer_0/angular_velocity = 0.0
 1:3/0 = 0
+1:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:3/0/physics_layer_0/angular_velocity = 0.0
 2:3/0 = 0
+2:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:3/0/physics_layer_0/angular_velocity = 0.0
+2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
 2:3/0/custom_data_1 = 2
 3:3/0 = 0
+3:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:3/0/physics_layer_0/angular_velocity = 0.0
+3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
 3:3/0/custom_data_1 = 1
 
 [sub_resource type="TileSet" id="TileSet_fig5t"]
 tile_size = Vector2i(60, 60)
+physics_layer_0/collision_layer = 0
 custom_data_layer_0/name = "scoring"
 custom_data_layer_0/type = 2
 custom_data_layer_1/name = "color"
@@ -47,23 +89,18 @@ custom_data_layer_1/type = 2
 sources/0 = SubResource("TileSetAtlasSource_ynqv4")
 sources/1 = SubResource("TileSetAtlasSource_o66xs")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8btvs"]
-size = Vector2(600, 600)
-
 [node name="Node2D" type="Node2D"]
-
-[node name="Conveyor" type="TileMap" parent="."]
-position = Vector2(700, 120)
-tile_set = SubResource("TileSet_fig5t")
-cell_quadrant_size = 30
-format = 2
-script = ExtResource("3_un6u0")
 
 [node name="MainCamera" type="Camera2D" parent="."]
 anchor_mode = 0
 
 [node name="PieceManager" type="Node2D" parent="."]
 script = ExtResource("4_g3j14")
+
+[node name="Cart" type="Sprite2D" parent="PieceManager"]
+position = Vector2(819, 108)
+texture = ExtResource("2_ra5wu")
+centered = false
 
 [node name="Plate" type="Area2D" parent="."]
 position = Vector2(60, 60)
@@ -80,10 +117,40 @@ format = 2
 layer_0/name = "base"
 layer_1/name = "food"
 layer_1/enabled = true
-layer_1/modulate = Color(1, 1, 1, 0.501961)
+layer_1/modulate = Color(1, 1, 1, 0.768627)
 layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = 1
 layer_1/tile_data = PackedInt32Array()
 
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("6_l581x")
+
+[node name="PassButt" type="Button" parent="UI"]
+offset_left = 1115.0
+offset_top = 492.0
+offset_right = 1239.0
+offset_bottom = 569.0
+theme_override_font_sizes/font_size = 50
+text = "Next"
+
+[node name="DoneButt" type="Button" parent="UI"]
+offset_left = 1125.0
+offset_top = 597.0
+offset_right = 1224.0
+offset_bottom = 674.0
+theme_override_font_sizes/font_size = 50
+text = "End"
+
+[node name="Score" type="Label" parent="UI"]
+offset_left = 822.0
+offset_top = 16.0
+offset_right = 1012.0
+offset_bottom = 88.0
+theme_override_font_sizes/font_size = 50
+text = "Score: 0"
+
 [connection signal="input_event" from="Plate" to="Plate" method="_on_input_event"]
+[connection signal="score_piece" from="Plate" to="UI" method="_on_plate_score_piece"]
+[connection signal="pressed" from="UI/PassButt" to="PieceManager" method="_on_pass_butt_pressed"]
+[connection signal="pressed" from="UI/DoneButt" to="UI" method="_on_done_butt_pressed"]

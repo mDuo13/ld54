@@ -4,7 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://d33xnwoinj2ew" path="res://Assets/2_Piece.png" id="1_x6ncf"]
 
 [node name="Piece" type="CharacterBody2D"]
+z_index = 5
 input_pickable = true
+motion_mode = 1
 script = ExtResource("1_wsu13")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
