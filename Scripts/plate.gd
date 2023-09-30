@@ -48,7 +48,11 @@ const FOODS = {
 var unscored_specials = []
 var scored_specials = []
 
+const OFFSCREEN = Vector2(-9999,-9999) ## Used for spawning pieces where player doesn't need to see them
+
 func _ready():
+	if []:
+		print("empty array is truthy")
 	randomize_board()
 	place_blockers()
 
@@ -88,33 +92,57 @@ func randomize_board():
 			)
 
 func place_blockers():
+	
 	#TODO: check for illegal placement (both initial and grow)
+	### INC. code for better blocker placement
 	for i in range(BLOCKER_COUNT):
-		var loc
-		while true:
-			loc = Vector2i(randi_range(0,GRID_WIDTH), randi_range(0,GRID_HEIGHT))
-			if oob(loc) or scoring_at(loc) > 0 or food_color_at(loc) == 3:
-				# try again if out of bounds or would overwrite a special or blocker
-				continue
-			break
-		put_food_at("blocked", loc)
-		for j in range(BLOCKER_SIZE-1):
-			var new_loc
-			var dirs_to_try = ORTHAGONAL_DIRS.duplicate()
-			dirs_to_try.shuffle()
-			var _failed_to_grow = false
-			while true:
-				new_loc = loc + dirs_to_try.pop_back()
-				if oob(new_loc) or scoring_at(new_loc) > 0 or food_color_at(new_loc) == 3:
-					if not dirs_to_try.size():
-						print("Nowhere to grow blocker...")
-						_failed_to_grow = true
-						break
-					continue
+		# Place "advanced" pieces as blockers
+		var blk = get_node("../PieceManager").make_piece_at(OFFSCREEN, "advanced")
+		var possible_locs = []
+		for x in range(GRID_WIDTH):
+			for y in range(GRID_HEIGHT):
+				possible_locs.append(Vector2i(x,y))
+		possible_locs.shuffle()
+		while possible_locs:
+			if not possible_locs.size():
+				print("oh shit, out of legal placements for blocker #", i)
 				break
-			#TODO: do something about failing to grow the blockers
-			loc = new_loc
-			put_food_at("blocked", loc)
+			var loc = possible_locs.pop_back()
+			# TBD: cells2d?
+			var cells_placed = test_piece_placement(loc, blk.piece.cells, "blocked")
+			if not cells_placed.size():
+				continue # try another loc
+			else:
+				for cell in cells_placed:
+					put_food_at("blocked", cell)
+				break
+
+# ##OLD blocker placement code
+#		var loc
+#		while true:
+#			loc = Vector2i(randi_range(0,GRID_WIDTH), randi_range(0,GRID_HEIGHT))
+#			if oob(loc) or scoring_at(loc) > 0 or food_color_at(loc) == 3:
+#				# try again if out of bounds or would overwrite a special or blocker
+#				continue
+#			break
+#		put_food_at("blocked", loc)
+#		for j in range(BLOCKER_SIZE-1):
+#			var new_loc
+#			var dirs_to_try = ORTHAGONAL_DIRS.duplicate()
+#			dirs_to_try.shuffle()
+#			var failed_to_grow = false
+#			while true:
+#				new_loc = loc + dirs_to_try.pop_back()
+#				if oob(new_loc) or scoring_at(new_loc) > 0 or food_color_at(new_loc) == 3:
+#					if not dirs_to_try.size():
+#						print("Nowhere to grow blocker...")
+#						failed_to_grow = true
+#						break
+#					continue
+#				break
+#			#TODO: do something about failing to grow the blockers
+#			loc = new_loc
+#			put_food_at("blocked", loc)
 
 func scoring_at(coords: Vector2i):
 	var cell_data = $PlateGrid.get_cell_tile_data(LAYER_BASE, coords)
@@ -223,7 +251,7 @@ func _on_piece_drop(pos: Vector2i, piece: Piece):
 	#TODO: handle rotation, maybe some other stuff
 	
 	var bump_score = 0
-	var cells2d : Array = TBD#TODO: piece.piece.cells?? ### grumble, "nested typed collections" like Array[Array[int]] aren't supported
+	var cells2d : Array = piece.piece.cells#TODO: piece.piece.cells?? ### grumble, "nested typed collections" like Array[Array[int]] aren't supported
 	var q_change = test_piece_placement(coords, cells2d, color)
 	
 	if not q_change.size():

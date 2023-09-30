@@ -1,14 +1,14 @@
 necessary:
-    piece rotation
+    finish piece rotation
     scoring special spaces
-    get export working
 
 nice to have:
     bgm
     title screen
     score screen
     "ghost" piece display with effects for why it's can't be placed?
-    theme?
+    project icon
+    playable on macos / ios 
 
 stretch goals:
     randomized scoring objectives
