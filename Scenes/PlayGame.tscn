@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://dmla031dku8le"]
+
+[ext_resource type="Texture2D" uid="uid://caupoabxxmf2p" path="res://Assets/Tile.png" id="1_7y3ry"]
+[ext_resource type="Script" path="res://Scripts/plate_setup.gd" id="2_nrm2g"]
+[ext_resource type="Script" path="res://Scripts/conveyor_setup.gd" id="3_un6u0"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ynqv4"]
+texture = ExtResource("1_7y3ry")
+texture_region_size = Vector2i(60, 60)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_fig5t"]
+tile_size = Vector2i(60, 60)
+sources/0 = SubResource("TileSetAtlasSource_ynqv4")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Plate" type="TileMap" parent="."]
+position = Vector2(60, 60)
+tile_set = SubResource("TileSet_fig5t")
+cell_quadrant_size = 60
+format = 2
+script = ExtResource("2_nrm2g")
+
+[node name="Conveyor" type="TileMap" parent="."]
+position = Vector2(700, 120)
+tile_set = SubResource("TileSet_fig5t")
+cell_quadrant_size = 30
+format = 2
+script = ExtResource("3_un6u0")
+
+[node name="MainCamera" type="Camera2D" parent="."]
+anchor_mode = 0
