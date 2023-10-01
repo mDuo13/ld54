@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://scripts/plate.gd" id="3_li54b"]
 [ext_resource type="Texture2D" uid="uid://cqpvf6ol0iv1u" path="res://assets/board_tiles.png" id="4_vv0ft"]
 [ext_resource type="Texture2D" uid="uid://b8yp3ihvvmub2" path="res://assets/plate_bg.png" id="5_sm288"]
-[ext_resource type="Script" path="res://scenes/UI.gd" id="6_f4r8g"]
+[ext_resource type="Script" path="res://scenes/ui.gd" id="6_f4r8g"]
 [ext_resource type="Texture2D" uid="uid://dnol534vyevfq" path="res://assets/tablecloth.jpg" id="7_dkyu8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8btvs"]

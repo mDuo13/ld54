@@ -1,14 +1,9 @@
-needs:
-
-- title
-
 graphics wants:
 
 - s block
-- title splash
 - score screen splash
 - steamer basket(s?) for pieces to sit on
-- tablecloth bg texture?
+- project icon
 
 nice to have:
 
@@ -17,11 +12,11 @@ nice to have:
 - audio levels config / mute button
 - real bgm / fix playback and transitioning w/ scenes
 - tutorial / howto screen(s)
-- score screen
-- project icon
 - sfx
 - playable on macos / ios
-- risk of having new blockers dropped on you
+- game balance
+    - risk of having new blockers dropped on you?
+- fade effect on scene transition
 
 stretch goals:
 

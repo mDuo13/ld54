@@ -44,6 +44,7 @@ offset_left = 370.0
 offset_top = 87.0
 offset_right = 951.0
 offset_bottom = 200.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 80
 text = "Delicious Sums"
 
@@ -53,6 +54,7 @@ offset_left = 7.0
 offset_top = 97.0
 offset_right = 574.0
 offset_bottom = 123.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "A game about dim sum for Ludum Dare 54: Limited Space"
 horizontal_alignment = 1
 
