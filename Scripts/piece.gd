@@ -29,8 +29,8 @@ var pieces = {
 			Vector2(0, 60)
 		],
 		"cells" : [
-			[1, 1, 0, 0],
-			[0, 1, 0, 0] # Rome's note: I changed this to match the sprite
+			[1, 1],
+			[0, 1]
 		],
 		"type" : "basic",
 		"points" : 1
@@ -46,8 +46,8 @@ var pieces = {
 			Vector2(0, 120)
 		],
 		"cells" : [
-			[1, 1, 1, 0],
-			[1, 0, 0, 0]
+			[1, 1, 1],
+			[1, 0, 0]
 		],
 		"type" : "advanced",
 		"points" : 2
@@ -63,8 +63,8 @@ var pieces = {
 			Vector2(0, 60)
 		],
 		"cells" : [
-			[1, 1, 1, 0],
-			[0, 0, 1, 0]
+			[1, 1, 1],
+			[0, 0, 1]
 		],
 		"type" : "advanced",
 		"points" : 2
@@ -82,8 +82,8 @@ var pieces = {
 			Vector2(0, 60)
 		],
 		"cells" : [
-			[1, 1, 1, 0],
-			[0, 1, 0, 0]
+			[1, 1, 1],
+			[0, 1, 0]
 		],
 		"type" : "advanced",
 		"points" : 2
@@ -100,8 +100,8 @@ var pieces = {
 			Vector2(0, 60)
 		],
 		"cells" : [
-			[0, 1, 1, 0],
-			[1, 1, 0, 0]
+			[0, 1, 1],
+			[1, 1, 0]
 		],
 		"type" : "advanced",
 		"points" : 2
@@ -119,8 +119,8 @@ var pieces = {
 			Vector2(0, 60)
 		],
 		"cells" : [
-			[1, 1, 0, 0],
-			[0, 1, 1, 0]
+			[1, 1, 0],
+			[0, 1, 1]
 		],
 		"type" : "advanced",
 		"points" : 2
@@ -134,8 +134,7 @@ var pieces = {
 			Vector2(0, 60)
 		],
 		"cells" : [
-			[1, 1, 1, 1],
-			[0, 0, 0, 0]
+			[1, 1, 1, 1]
 		],
 		"type" : "advanced",
 		"points" : 2
@@ -149,8 +148,8 @@ var pieces = {
 			Vector2(0, 120)
 		],
 		"cells" : [
-			[1, 1, 0, 0],
-			[1, 1, 0, 0]
+			[1, 1],
+			[1, 1]
 		],
 		"type" : "advanced",
 		"points" : 2
@@ -235,6 +234,7 @@ func snap_to(gridw, gridh, test_only=false):
 		Vector2i(position) / 
 		Vector2i(gridw, gridh)
 	) * Vector2i(gridw, gridh)) + from_center
+	print("snap_pos:", new_pos)
 	if test_only:
 		return new_pos
 	else:
