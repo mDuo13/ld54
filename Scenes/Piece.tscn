@@ -11,6 +11,5 @@ script = ExtResource("1_wsu13")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_x6ncf")
-centered = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]

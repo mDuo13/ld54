@@ -129,8 +129,8 @@ var pieces = {
 		"image" : preload("res://Assets/I_Piece.png"),
 		"vertices" : [
 			Vector2(0, 0),
-			Vector2(180, 0),
-			Vector2(180, 60),
+			Vector2(240, 0),
+			Vector2(240, 60),
 			Vector2(0, 60)
 		],
 		"cells" : [
@@ -181,6 +181,7 @@ func set_piece(p: String = ""):
 	piece = pieces[p]
 	$Sprite2D.texture = piece["image"]
 	$CollisionPolygon2D.polygon = piece["vertices"]
+	$CollisionPolygon2D.position = Vector2(-cell_width()*30, -cell_height()*30)
 
 func set_piece_type(t: String = ""):
 	if not t:
@@ -205,17 +206,53 @@ func cells_counterclockwise():
 		for x in range(len(piece["cells"][0])):
 			matrix[len(piece["cells"][0]) - x - 1][y] = piece["cells"][y][x]
 	piece["cells"] = matrix
+	print_matrix(piece["cells"])
 
 func cells_clockwise():
 	cells_counterclockwise()
 	cells_counterclockwise()
 	cells_counterclockwise()
 
+func cell_height():
+	var max_y=0
+	for dy in range(piece["cells"].size()):
+		for dx in range(piece.cells[dy].size()):
+			if piece.cells[dy][dx] and dy > max_y:
+				max_y = dy
+	return max_y+1
+
+func cell_width():
+	var max_x=0
+	for dy in range(piece["cells"].size()):
+		for dx in range(piece.cells[dy].size()):
+			if piece.cells[dy][dx] and dx > max_x:
+				max_x = dx
+	return max_x+1
+
+func snap_to(gridw, gridh, test_only=false):
+	var from_center = Vector2(cell_width()*30, cell_height()*30)
+	var new_pos = Vector2((
+		Vector2i(position) / 
+		Vector2i(gridw, gridh)
+	) * Vector2i(gridw, gridh)) + from_center
+	if test_only:
+		return new_pos
+	else:
+		position = new_pos
+		return position
+
+func snap(test_only=false):
+	snap_to(60,60, test_only)
+
+func top_left():
+	return position-Vector2(cell_width()*30, cell_height()*30)
+
 func _process(_delta):
 	if (mouse_over && !dragging && Input.is_action_just_pressed("select")):
 		dragging = true
 	if (dragging && Input.is_action_pressed("select")):
 		set_position(get_viewport().get_mouse_position())
+		snap()
 	else:
 		if dragging == true:
 			emit_signal("piece_drop", position, self)

@@ -227,9 +227,9 @@ func _on_input_event(_viewport, event, _shape_idx):
 func test_piece_placement(base_coords:Vector2i, cells2d: Array, color: String) -> Array:
 	## Really the return type is Array[Vector2i] except sometimes it's empty
 	var q_change = []
-	for dx in range(cells2d.size()):
-		for dy in range(cells2d[dx].size()):
-			if not cells2d[dx][dy]:
+	for dy in range(cells2d.size()):
+		for dx in range(cells2d[dy].size()):
+			if not cells2d[dy][dx]:
 				# not a filled cell
 				continue
 			var cell_coords = base_coords + Vector2i(dx, dy)
@@ -247,13 +247,13 @@ func test_piece_placement(base_coords:Vector2i, cells2d: Array, color: String) -
 	return q_change
 
 func _on_piece_drop(pos: Vector2i, piece: Piece):
-	var coords = map_coords_of(pos, true) # based on top left corner of piece hitbox
+	var coords = map_coords_of(piece.top_left())
+	print("dropping piece at map coords", coords)
 	var color : String = piece.piece.type
 	#TODO: handle rotation, maybe some other stuff
 	
 	var bump_score = 0
 	var cells2d : Array = piece.piece.cells#TODO: piece.piece.cells?? ### grumble, "nested typed collections" like Array[Array[int]] aren't supported
-	print(cells2d)
 	var q_change = test_piece_placement(coords, cells2d, color)
 	
 	if not q_change.size():
@@ -270,7 +270,7 @@ func _on_piece_drop(pos: Vector2i, piece: Piece):
 	#TODO: actually do score and animation stuff
 	
 	# snap piece's actual position & make it 
-	piece.position = (Vector2i(piece.position+Vector2(30,30)) / Vector2i(60,60)) * Vector2i(60,60) #TODO: fix magic numbers
+	#piece.snap_to(60,60)
 	piece.input_pickable = false
 	piece.modulate.a = 0.4 # temp, for visibility
 	piece.remove_from_group("Unplaced Pieces")
