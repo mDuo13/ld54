@@ -1,26 +1,33 @@
 needs:
-    - title
+
+- title
 
 graphics wants:
-    - s block
-    - title splash
-    - score screen splash
-    - steamer basket for pieces to sit on
-    - tablecloth bg texture?
+
+- s block
+- title splash
+- score screen splash
+- steamer basket(s?) for pieces to sit on
+- tablecloth bg texture?
 
 nice to have:
-    audio levels config / mute button
-    real bgm / fix playback and transitioning w/ scenes
-    tutorial / howto screen(s)
-    score screen
-    project icon
-    sfx
-    playable on macos / ios
-    risk of having new blockers dropped on you
+
+- visual indicator for scoring regular points
+- visual indicator for scoring bonuses
+- audio levels config / mute button
+- real bgm / fix playback and transitioning w/ scenes
+- tutorial / howto screen(s)
+- score screen
+- project icon
+- sfx
+- playable on macos / ios
+- risk of having new blockers dropped on you
 
 stretch goals:
-    undo button
-    randomized scoring objectives
-    more balanced board rando (e.g. don't dump all the blockers on the same side)
-    animate cart loading in
-    set/load a given board seed
+
+- undo button
+- randomized scoring objectives
+- more balanced board rando (e.g. don't dump all the blockers on the same side)
+- animate cart loading in
+- set/load a given board seed
+- detect when the player literally can't play/score more
