@@ -1,0 +1,215 @@
+[gd_scene load_steps=2 format=3 uid="uid://cow4ruwf38rrv"]
+
+[ext_resource type="Script" path="res://scripts/score_screen.gd" id="1_l15v6"]
+
+[node name="ScoreScreen" type="CanvasLayer"]
+script = ExtResource("1_l15v6")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+z_index = 2
+layout_direction = 2
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = 40.0
+offset_right = 270.0
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="LabelResults" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "Results"
+
+[node name="LabelSymbols" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "Symbols scored.........."
+horizontal_alignment = 2
+
+[node name="LabelSweets" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Points from Sweets"
+horizontal_alignment = 2
+
+[node name="LabelSavory" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Points from Savory"
+horizontal_alignment = 2
+
+[node name="LabelSpecials" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "Specials activated......"
+horizontal_alignment = 2
+
+[node name="LabelSpecials2" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Points from Specials"
+horizontal_alignment = 2
+
+[node name="LeftSpacer1" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+horizontal_alignment = 2
+
+[node name="LabelTurnsTaken" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "Turns Taken................"
+horizontal_alignment = 2
+
+[node name="LeftDivider1" type="ColorRect" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="LabelTotal" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = " Total Score"
+horizontal_alignment = 2
+
+[node name="LeftSpacer2" type="Label" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 8
+text = " "
+horizontal_alignment = 2
+
+[node name="OrderAgain" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 28
+text = "Order Again"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="SpacerResults" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = " "
+horizontal_alignment = 1
+
+[node name="Symbols" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "....................................."
+horizontal_alignment = 2
+text_overrun_behavior = 1
+
+[node name="Sweets" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "..................................."
+horizontal_alignment = 2
+
+[node name="Savory" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "..................................."
+horizontal_alignment = 2
+
+[node name="Specials" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "........................................................................................"
+horizontal_alignment = 2
+text_overrun_behavior = 3
+
+[node name="Specials2" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "..................................."
+horizontal_alignment = 2
+
+[node name="Spacer1" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="TurnsTaken" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "....................................."
+horizontal_alignment = 2
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TotalScore" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "12345"
+horizontal_alignment = 2
+
+[node name="RightSpacer2" type="Label" parent="HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 8
+text = " "
+horizontal_alignment = 2
+
+[node name="ToTitle" type="Button" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 28
+text = "Back to Title"
+
+[node name="WhiteBG" type="ColorRect" parent="."]
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.025
+anchor_right = 0.75
+anchor_bottom = 0.975
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BlackBG" type="ColorRect" parent="."]
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/OrderAgain" to="." method="_on_order_again_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer2/ToTitle" to="." method="_on_to_title_pressed"]

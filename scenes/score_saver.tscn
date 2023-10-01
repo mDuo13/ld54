@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckhl3shfwjrlv"]
+
+[ext_resource type="Script" path="res://globals/score_saver.gd" id="1_0mo8l"]
+
+[node name="ScoreSaver" type="Node"]
+script = ExtResource("1_0mo8l")
