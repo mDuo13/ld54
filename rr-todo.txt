@@ -1,12 +1,19 @@
 necessary:
     scoring special spaces
 
+graphics wants:
+    - s block
+    - title splash
+    - score screen splash
+    - steamer basket for pieces to sit on
+    - tablecloth bg texture?
+
 nice to have:
-    real bgm
-    title screen
+    real bgm / fix playback and transitioning w/ scenes
     tutorial / howto screen(s)
     score screen
     project icon
+    sfx
     playable on macos / ios 
 
 stretch goals:

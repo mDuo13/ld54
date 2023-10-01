@@ -163,9 +163,6 @@ var piece
 
 var by_type = {}
 
-const XMARK = preload("res://Scenes/x_mark.tscn")
-var marks : Array[Sprite2D]
-
 func _ready():
 	ready_pieces_by_type()
 	if not piece:
