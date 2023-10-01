@@ -160,6 +160,7 @@ var pieces = {
 var mouse_over = false
 var dragging = false
 var piece
+var points_scored = 0
 
 var by_type = {}
 

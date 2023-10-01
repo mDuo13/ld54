@@ -1,11 +1,11 @@
 [gd_scene load_steps=4 format=3 uid="uid://c0jdeegr6c6nd"]
 
-[ext_resource type="Script" path="res://AudioManager.gd" id="1_7ets1"]
+[ext_resource type="Script" path="res://Scripts/AudioManager.gd" id="1_tgesj"]
 [ext_resource type="AudioStream" uid="uid://bu28onbcyljv0" path="res://Assets/audio/melody.wav" id="2_5lkyd"]
 [ext_resource type="AudioStream" uid="uid://bjnuvy02c3hdl" path="res://Assets/audio/melodytri.wav" id="3_5vo5k"]
 
 [node name="AudioManager" type="Node"]
-script = ExtResource("1_7ets1")
+script = ExtResource("1_tgesj")
 
 [node name="MainBGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_5lkyd")

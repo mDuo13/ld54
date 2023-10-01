@@ -1,5 +1,5 @@
-necessary:
-    scoring special spaces
+needs:
+    - title
 
 graphics wants:
     - s block
@@ -9,12 +9,14 @@ graphics wants:
     - tablecloth bg texture?
 
 nice to have:
+    audio levels config / mute button
     real bgm / fix playback and transitioning w/ scenes
     tutorial / howto screen(s)
     score screen
     project icon
     sfx
-    playable on macos / ios 
+    playable on macos / ios
+    risk of having new blockers dropped on you
 
 stretch goals:
     undo button

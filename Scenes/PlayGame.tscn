@@ -172,6 +172,7 @@ text = "Score: 0"
 
 [connection signal="input_event" from="Plate" to="Plate" method="_on_input_event"]
 [connection signal="placed_piece" from="Plate" to="UI" method="_on_plate_placed_piece"]
+[connection signal="score_bonus" from="Plate" to="Plate" method="_on_score_bonus"]
 [connection signal="score_bonus" from="Plate" to="AudioManager" method="_on_plate_score_bonus"]
 [connection signal="score_piece" from="Plate" to="UI" method="_on_plate_score_piece"]
 [connection signal="pressed" from="UI/PassButt" to="PieceManager" method="_on_pass_butt_pressed"]

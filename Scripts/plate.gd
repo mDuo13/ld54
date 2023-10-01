@@ -7,8 +7,7 @@ signal score_bonus
 @export var GRID_WIDTH  = 10
 @export var GRID_HEIGHT = 10
 @export var BLOCKER_COUNT = 3  ## How many blockers are placed onto the grid initially
-@export var BLOCKER_SIZE = 4  ## How many squares each blocker is (default)
-#FF: variable size blockers
+@export var BONUS_MULTIPLIER = 5
 
 const TILE_SRC = 1 #board_tiles.png
 # GRID Layers
@@ -53,7 +52,7 @@ const FOODS = {
 	"special_3": 1
 }
 
-var unscored_specials = []
+var unscored_specials = {}
 var scored_specials = []
 
 const OFFSCREEN = Vector2(-9999,-9999) ## Used for spawning pieces where player doesn't need to see them
@@ -81,13 +80,16 @@ func randomize_board():
 		print("Bag contains", GRID_WIDTH * GRID_HEIGHT - tile_bag.size(), "tiles more than there's room for")
 	tile_bag.shuffle()
 	
-	scored_specials = []
-	unscored_specials = []
+	scored_specials = {}
+	unscored_specials = {}
 	for x in range(GRID_WIDTH):
 		for y in range(GRID_HEIGHT):
 			var tile_type = tile_bag.pop_back()
 			if tile_type in ["special_1", "special_2", "special_3"]:
-				unscored_specials.append(Vector2i(x, y))
+				unscored_specials[tile_type] = {
+					"coords": Vector2i(x, y),
+					"pieces": []
+				}
 			var tile_atlas = TILE_TYPES[tile_type]
 			# Set the tile at (x, y) to TILE_SQUARE
 			$PlateGrid.set_cell(
@@ -143,7 +145,7 @@ func put_food_at(food : String, coords: Vector2i):
 	var food_tile = TILE_TYPES[food]
 	$PlateGrid.set_cell(LAYER_FOOD, coords, TILE_SRC, food_tile)
 
-func adacent_to_color(coords: Vector2i, color: String) -> bool:
+func adjacent_to_color(coords: Vector2i, color: String) -> bool:
 	var color_i = FOODS[color]
 	for d in ORTHAGONAL_DIRS:
 		var chk_coords = coords + d
@@ -152,6 +154,7 @@ func adacent_to_color(coords: Vector2i, color: String) -> bool:
 	return false
 
 func is_encircled(coords: Vector2i):
+	#TODO: check that this doesn't allow overlap & fix ifso
 	assert (not oob(coords))
 	var gap_found = false
 	for dx in range(-1, 2):
@@ -177,24 +180,26 @@ func cycle_food_at(coords: Vector2i): #debug helper
 		$PlateGrid.erase_cell(LAYER_FOOD, coords)
 	else:
 		$PlateGrid.set_cell(LAYER_FOOD, coords, TILE_SRC, TILE_TYPES[FOODS.keys()[food_color]])
-	
+
+
 func map_coords_of(global_coords: Vector2i, smoothing=false) -> Vector2i:
 	if smoothing:
 		global_coords += Vector2i(30,30)#TODO: fix magic number
 	return $PlateGrid.local_to_map( to_local(global_coords) )
-	
-func check_for_circled_specials() -> Array[Vector2i]:
-	var new_scores : Array[Vector2i] = []
-	for i in range(unscored_specials.size() - 1, -1, -1): # backwards so we can pop safely
-		if is_encircled(unscored_specials[i]):
-			var score : Vector2i = unscored_specials.pop_at(i)
-			new_scores.append(score)
-			scored_specials.append(score)
-			print("Woo! Scored a special @", score)
-			emit_signal("score_bonus", scoring_at(score))
-	return new_scores
-		
-			
+
+
+func check_for_circled_specials():
+	var new_scores = {}
+	##for i in range(unscored_specials.size() - 1, -1, -1): # backwards so we can pop safely
+	for sname in unscored_specials.keys(): # only safe to remove from dict if we iterate over keys()
+		var special = unscored_specials[sname]
+		if is_encircled(special.coords):
+			new_scores[sname] = special
+			scored_specials[sname] = special
+			unscored_specials.erase(sname)
+			print("Woo! Scored a special @", special.coords)
+			emit_signal("score_bonus", sname, special)
+
 
 func _on_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed:
@@ -203,6 +208,7 @@ func _on_input_event(_viewport, event, _shape_idx):
 		print("Points:",scoring_at(map_coords))
 		print("Encircled?:", is_encircled(map_coords))
 		#cycle_food_at(map_coords)
+
 
 func test_piece_placement(base_coords:Vector2i, cells2d: Array, color: String, dont_overlap_specials=false) -> Array:
 	## Really the return type is Array[Vector2i] except sometimes it's empty
@@ -222,7 +228,7 @@ func test_piece_placement(base_coords:Vector2i, cells2d: Array, color: String, d
 				#print("blocked @", cell_coords)
 				set_x_at(cell_coords)
 				failed_check = true
-			if adacent_to_color(cell_coords, color):
+			if adjacent_to_color(cell_coords, color):
 				#print("adjacency problem @", cell_coords)
 				set_x_at(cell_coords)
 				failed_check = true
@@ -235,20 +241,22 @@ func test_piece_placement(base_coords:Vector2i, cells2d: Array, color: String, d
 		return []
 	return q_change
 
+
 func set_x_at(coords):
 	$PlateGrid.set_cell(LAYER_X, coords, TILE_SRC, TILE_TYPES["xmark"])
 
+
 func wipe_xs():
 	$PlateGrid.clear_layer(LAYER_X)
+
 
 func _on_piece_drop(_pos: Vector2i, piece: Piece):
 	var coords = map_coords_of(piece.top_left())
 	print("dropping piece at map coords", coords)
 	var color : String = piece.piece.type
-	#TODO: handle rotation, maybe some other stuff
 	
 	var bump_score = 0
-	var cells2d : Array = piece.piece.cells#TODO: piece.piece.cells?? ### grumble, "nested typed collections" like Array[Array[int]] aren't supported
+	var cells2d : Array = piece.piece.cells ### grumble, "nested typed collections" like Array[Array[int]] aren't supported
 	var q_change = test_piece_placement(coords, cells2d, color)
 	
 	if not q_change.size():
@@ -258,16 +266,37 @@ func _on_piece_drop(_pos: Vector2i, piece: Piece):
 		put_food_at(color, set_coords)
 		if scoring_at(set_coords) == 1: # Regular space, add to score
 			bump_score += piece.score_value()
+		notify_adjacent_specials(set_coords, piece)
 	if bump_score:
+		piece.points_scored = bump_score
 		emit_signal("score_piece", bump_score)
 	emit_signal("placed_piece")
 	
-	var _scored_specials = check_for_circled_specials()
-	#TODO: actually do score and animation stuff
-	
+	check_for_circled_specials()
 	piece.lock()
-		
-	#print(pos, piece)
+
+
+func coords_adjacent(v1: Vector2i, v2: Vector2i):
+	return (abs(v2-v1) <= Vector2i(1,1))
+
+
+## Add this piece to the tracking list for any adjacent unscored specials so
+## that this piece can be re-scored when the special is encircled
+func notify_adjacent_specials(coords, piece) -> void:
+	for sname in unscored_specials.keys():
+		var sp = unscored_specials[sname]
+		if coords_adjacent(sp.coords, coords):
+			if piece not in sp.pieces:
+				sp.pieces.append(piece)
+
 
 func _on_piece_move():
 	wipe_xs()
+
+
+func _on_score_bonus(_special_name, special_deets):
+	var points_added = 0
+	for piece in special_deets.pieces:
+		points_added += piece.points_scored * (BONUS_MULTIPLIER-1)
+	if points_added:
+		emit_signal("score_piece", points_added)
