@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dmla031dku8le"]
+[gd_scene load_steps=13 format=3 uid="uid://dmla031dku8le"]
 
 [ext_resource type="Texture2D" uid="uid://caupoabxxmf2p" path="res://Assets/Tile.png" id="1_7y3ry"]
 [ext_resource type="Texture2D" uid="uid://cqpvf6ol0iv1u" path="res://Assets/board_tiles.png" id="2_0m3lk"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Scripts/plate.gd" id="5_eb8rb"]
 [ext_resource type="Script" path="res://Scenes/UI.gd" id="6_l581x"]
 [ext_resource type="Texture2D" uid="uid://b8yp3ihvvmub2" path="res://Assets/plate_bg.png" id="6_upbwx"]
+[ext_resource type="PackedScene" uid="uid://c0jdeegr6c6nd" path="res://Scenes/audio_manager.tscn" id="8_7nvtl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8btvs"]
 size = Vector2(600, 600)
@@ -44,11 +45,11 @@ texture_region_size = Vector2i(60, 60)
 1:1/0 = 0
 1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:1/0/physics_layer_0/angular_velocity = 0.0
-1:1/0/custom_data_0 = 2
+1:1/0/custom_data_0 = 3
 2:1/0 = 0
 2:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:1/0/physics_layer_0/angular_velocity = 0.0
-2:1/0/custom_data_0 = 2
+2:1/0/custom_data_0 = 4
 3:1/0 = 0
 3:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:1/0/physics_layer_0/angular_velocity = 0.0
@@ -126,6 +127,13 @@ layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = 4
 layer_1/tile_data = PackedInt32Array()
+layer_2/name = "overlay"
+layer_2/enabled = true
+layer_2/modulate = Color(1, 1, 1, 0.752941)
+layer_2/y_sort_enabled = false
+layer_2/y_sort_origin = 0
+layer_2/z_index = 6
+layer_2/tile_data = PackedInt32Array()
 
 [node name="Sprite2D" type="Sprite2D" parent="Plate"]
 texture = ExtResource("6_upbwx")
@@ -160,8 +168,11 @@ offset_bottom = 88.0
 theme_override_font_sizes/font_size = 50
 text = "Score: 0"
 
+[node name="AudioManager" parent="." instance=ExtResource("8_7nvtl")]
+
 [connection signal="input_event" from="Plate" to="Plate" method="_on_input_event"]
 [connection signal="placed_piece" from="Plate" to="UI" method="_on_plate_placed_piece"]
+[connection signal="score_bonus" from="Plate" to="AudioManager" method="_on_plate_score_bonus"]
 [connection signal="score_piece" from="Plate" to="UI" method="_on_plate_score_piece"]
 [connection signal="pressed" from="UI/PassButt" to="PieceManager" method="_on_pass_butt_pressed"]
 [connection signal="pressed" from="UI/DoneButt" to="UI" method="_on_done_butt_pressed"]

@@ -2,6 +2,7 @@ extends Area2D
 
 signal score_piece
 signal placed_piece
+signal score_bonus
 
 @export var GRID_WIDTH  = 10
 @export var GRID_HEIGHT = 10
@@ -13,6 +14,7 @@ const TILE_SRC = 1 #board_tiles.png
 # GRID Layers
 const LAYER_BASE = 0
 const LAYER_FOOD = 1
+const LAYER_X = 2
 
 const ORTHAGONAL_DIRS = [
 	Vector2i(0,-1), #up
@@ -31,7 +33,8 @@ var TILE_TYPES = {
 	"special_2": Vector2(1, 1),
 	"special_3": Vector2(2, 1),
 	"basic": Vector2(3,3),
-	"advanced": Vector2(2,3)
+	"advanced": Vector2(2,3),
+	"xmark": Vector2(0,2)
 }
 
 const FOODS = {
@@ -56,8 +59,6 @@ var scored_specials = []
 const OFFSCREEN = Vector2(-9999,-9999) ## Used for spawning pieces where player doesn't need to see them
 
 func _ready():
-	if []:
-		print("empty array is truthy")
 	randomize_board()
 	place_blockers()
 
@@ -97,9 +98,6 @@ func randomize_board():
 			)
 
 func place_blockers():
-	
-	#TODO: check for illegal placement (both initial and grow)
-	### INC. code for better blocker placement
 	for i in range(BLOCKER_COUNT):
 		# Place "advanced" pieces as blockers
 		var blk = get_node("../PieceManager").make_piece_at(OFFSCREEN, "advanced")
@@ -119,34 +117,11 @@ func place_blockers():
 			else:
 				for cell in cells_placed:
 					put_food_at("blocked", cell)
+				blk.position = to_global($PlateGrid.map_to_local(loc))
+				blk.snap()
+				blk.lock()
 				break
-
-# ##OLD blocker placement code
-#		var loc
-#		while true:
-#			loc = Vector2i(randi_range(0,GRID_WIDTH), randi_range(0,GRID_HEIGHT))
-#			if oob(loc) or scoring_at(loc) > 0 or food_color_at(loc) == 3:
-#				# try again if out of bounds or would overwrite a special or blocker
-#				continue
-#			break
-#		put_food_at("blocked", loc)
-#		for j in range(BLOCKER_SIZE-1):
-#			var new_loc
-#			var dirs_to_try = ORTHAGONAL_DIRS.duplicate()
-#			dirs_to_try.shuffle()
-#			var failed_to_grow = false
-#			while true:
-#				new_loc = loc + dirs_to_try.pop_back()
-#				if oob(new_loc) or scoring_at(new_loc) > 0 or food_color_at(new_loc) == 3:
-#					if not dirs_to_try.size():
-#						print("Nowhere to grow blocker...")
-#						failed_to_grow = true
-#						break
-#					continue
-#				break
-#			#TODO: do something about failing to grow the blockers
-#			loc = new_loc
-#			put_food_at("blocked", loc)
+	wipe_xs()
 
 func scoring_at(coords: Vector2i):
 	var cell_data = $PlateGrid.get_cell_tile_data(LAYER_BASE, coords)
@@ -212,10 +187,11 @@ func check_for_circled_specials() -> Array[Vector2i]:
 	var new_scores : Array[Vector2i] = []
 	for i in range(unscored_specials.size() - 1, -1, -1): # backwards so we can pop safely
 		if is_encircled(unscored_specials[i]):
-			var score = unscored_specials.pop_at(i)
+			var score : Vector2i = unscored_specials.pop_at(i)
 			new_scores.append(score)
 			scored_specials.append(score)
 			print("Woo! Scored a special @", score)
+			emit_signal("score_bonus", scoring_at(score))
 	return new_scores
 		
 			
@@ -231,29 +207,41 @@ func _on_input_event(_viewport, event, _shape_idx):
 func test_piece_placement(base_coords:Vector2i, cells2d: Array, color: String, dont_overlap_specials=false) -> Array:
 	## Really the return type is Array[Vector2i] except sometimes it's empty
 	var q_change = []
+	var failed_check = false
 	for dy in range(cells2d.size()):
 		for dx in range(cells2d[dy].size()):
 			if not cells2d[dy][dx]:
 				# not a filled cell
 				continue
 			var cell_coords = base_coords + Vector2i(dx, dy)
-		
 			if oob(cell_coords):
 				#print("oob piece drop @ square", cell_coords)
-				return []
+				#set_x_at(cell_coords) # Don't put extra x's because it's overkill if the piece isn't near the board
+				failed_check = true
 			if is_occupied(cell_coords):
 				#print("blocked @", cell_coords)
-				return []
+				set_x_at(cell_coords)
+				failed_check = true
 			if adacent_to_color(cell_coords, color):
 				#print("adjacency problem @", cell_coords)
-				return []
+				set_x_at(cell_coords)
+				failed_check = true
 			if dont_overlap_specials and scoring_at(cell_coords) > 1:
 				#print("not supposed to overlap special @", cell_coords)
-				return []
+				set_x_at(cell_coords)
+				failed_check = true
 			q_change.append(cell_coords)
+	if failed_check:
+		return []
 	return q_change
 
-func _on_piece_drop(pos: Vector2i, piece: Piece):
+func set_x_at(coords):
+	$PlateGrid.set_cell(LAYER_X, coords, TILE_SRC, TILE_TYPES["xmark"])
+
+func wipe_xs():
+	$PlateGrid.clear_layer(LAYER_X)
+
+func _on_piece_drop(_pos: Vector2i, piece: Piece):
 	var coords = map_coords_of(piece.top_left())
 	print("dropping piece at map coords", coords)
 	var color : String = piece.piece.type
@@ -277,7 +265,9 @@ func _on_piece_drop(pos: Vector2i, piece: Piece):
 	var _scored_specials = check_for_circled_specials()
 	#TODO: actually do score and animation stuff
 	
-	piece.input_pickable = false
-	piece.remove_from_group("Unplaced Pieces")
+	piece.lock()
 		
 	#print(pos, piece)
+
+func _on_piece_move():
+	wipe_xs()

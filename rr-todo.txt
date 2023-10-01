@@ -2,12 +2,10 @@ necessary:
     scoring special spaces
 
 nice to have:
-    place sprites for blocker pieces
-    bgm
+    real bgm
     title screen
     tutorial / howto screen(s)
     score screen
-    "ghost" piece display with effects for why it's can't be placed?
     project icon
     playable on macos / ios 
 
@@ -16,3 +14,4 @@ stretch goals:
     randomized scoring objectives
     more balanced board rando (e.g. don't dump all the blockers on the same side)
     animate cart loading in
+    set/load a given board seed

@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 driver/mix_rate.web=44100
 
+[autoload]
+
+AudioManager="*res://Scenes/audio_manager.tscn"
+
 [debug]
 
 gdscript/warnings/integer_division=0

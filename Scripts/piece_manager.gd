@@ -23,6 +23,7 @@ func make_piece_at(coords, piecetype:String = "") -> Piece:
 	piece_instance.set_position(coords)
 	add_child(piece_instance)
 	piece_instance.connect("piece_drop", get_node("../Plate")._on_piece_drop)
+	piece_instance.connect("piece_move", get_node("../Plate")._on_piece_move)
 	piece_instance.add_to_group("Unplaced Pieces")
 	return piece_instance
 

@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name Piece
 
 signal piece_drop
+signal piece_move
 
 var pieces = {
 	"2" : {
@@ -162,6 +163,9 @@ var piece
 
 var by_type = {}
 
+const XMARK = preload("res://Scenes/x_mark.tscn")
+var marks : Array[Sprite2D]
+
 func _ready():
 	ready_pieces_by_type()
 	if not piece:
@@ -174,6 +178,7 @@ func ready_pieces_by_type():
 		else:
 			by_type[pieces[p].type] = [p]
 
+
 func set_piece(p: String = ""):
 	if not p:
 		p = pieces.keys()[randi() % pieces.size()]
@@ -181,6 +186,7 @@ func set_piece(p: String = ""):
 	$Sprite2D.texture = piece["image"]
 	$CollisionPolygon2D.polygon = piece["vertices"]
 	$CollisionPolygon2D.position = Vector2(-cell_width()*30, -cell_height()*30)
+	
 
 func set_piece_type(t: String = ""):
 	if not t:
@@ -241,11 +247,17 @@ func snap_to(gridw, gridh, test_only=false):
 		position = new_pos
 		return position
 
+
 func snap(test_only=false):
 	snap_to(60,60, test_only)
 
 func top_left():
 	return position-Vector2(cell_width()*30, cell_height()*30)
+
+func lock():
+	input_pickable = false
+	remove_from_group("Unplaced Pieces")
+	z_index = 2
 
 func _process(_delta):
 	if (mouse_over && !dragging && Input.is_action_just_pressed("select")):
@@ -253,6 +265,7 @@ func _process(_delta):
 	if (dragging && Input.is_action_pressed("select")):
 		set_position(get_viewport().get_mouse_position())
 		snap()
+		emit_signal("piece_move")
 	else:
 		if dragging == true:
 			emit_signal("piece_drop", position, self)
