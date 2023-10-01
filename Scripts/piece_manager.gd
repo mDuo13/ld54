@@ -47,7 +47,5 @@ func make_bag() -> void:
 func _on_pass_butt_pressed():
 	get_tree().call_group("Unplaced Pieces", "queue_free")
 	make_bag()
+	get_node("../UI/PassButt").disabled =true
 
-
-func _on_plate_score_piece():
-	pass # Replace with function body.

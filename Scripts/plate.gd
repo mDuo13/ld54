@@ -1,6 +1,7 @@
 extends Area2D
 
 signal score_piece
+signal placed_piece
 
 @export var GRID_WIDTH  = 10
 @export var GRID_HEIGHT = 10
@@ -271,6 +272,7 @@ func _on_piece_drop(pos: Vector2i, piece: Piece):
 			bump_score += piece.score_value()
 	if bump_score:
 		emit_signal("score_piece", bump_score)
+	emit_signal("placed_piece")
 	
 	var _scored_specials = check_for_circled_specials()
 	#TODO: actually do score and animation stuff
@@ -278,4 +280,4 @@ func _on_piece_drop(pos: Vector2i, piece: Piece):
 	piece.input_pickable = false
 	piece.remove_from_group("Unplaced Pieces")
 		
-	print(pos, piece)
+	#print(pos, piece)

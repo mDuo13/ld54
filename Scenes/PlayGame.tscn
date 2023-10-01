@@ -141,6 +141,7 @@ offset_top = 492.0
 offset_right = 1239.0
 offset_bottom = 569.0
 theme_override_font_sizes/font_size = 50
+disabled = true
 text = "Next"
 
 [node name="DoneButt" type="Button" parent="UI"]
@@ -160,6 +161,7 @@ theme_override_font_sizes/font_size = 50
 text = "Score: 0"
 
 [connection signal="input_event" from="Plate" to="Plate" method="_on_input_event"]
+[connection signal="placed_piece" from="Plate" to="UI" method="_on_plate_placed_piece"]
 [connection signal="score_piece" from="Plate" to="UI" method="_on_plate_score_piece"]
 [connection signal="pressed" from="UI/PassButt" to="PieceManager" method="_on_pass_butt_pressed"]
 [connection signal="pressed" from="UI/DoneButt" to="UI" method="_on_done_butt_pressed"]

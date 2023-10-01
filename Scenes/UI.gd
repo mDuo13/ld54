@@ -9,3 +9,7 @@ func _on_plate_score_piece(add_score):
 
 func _on_done_butt_pressed():
 	get_tree().reload_current_scene() # TODO: actually code a score screen
+
+
+func _on_plate_placed_piece():
+	$PassButt.disabled = false
