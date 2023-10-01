@@ -22,7 +22,7 @@ driver/mix_rate.web=44100
 [autoload]
 
 AudioManager="*res://globals/audio_manager.tscn"
-ScoreSaver="*res://scenes/score_saver.tscn"
+ScoreSaver="*res://globals/score_saver.tscn"
 
 [debug]
 

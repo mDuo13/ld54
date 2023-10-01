@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bq8jruxydluvw"
-path="res://.godot/imported/O_Piece.png-4d0f1560eed9f08d9d6b6e49c4015c77.ctex"
+uid="uid://dnol534vyevfq"
+path="res://.godot/imported/tablecloth.jpg-8f9da8f300916cf46238fb4dfb01da00.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/O_Piece.png"
-dest_files=["res://.godot/imported/O_Piece.png-4d0f1560eed9f08d9d6b6e49c4015c77.ctex"]
+source_file="res://assets/tablecloth.jpg"
+dest_files=["res://.godot/imported/tablecloth.jpg-8f9da8f300916cf46238fb4dfb01da00.ctex"]
 
 [params]
 

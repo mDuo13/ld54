@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c8ct35hekt7nb"]
 
 [ext_resource type="Script" path="res://scripts/piece.gd" id="1_c74nc"]
-[ext_resource type="Texture2D" uid="uid://d33xnwoinj2ew" path="res://Assets/2_Piece.png" id="1_x6ncf"]
+[ext_resource type="Texture2D" uid="uid://d33xnwoinj2ew" path="res://assets/2_Piece.png" id="1_x6ncf"]
 
 [node name="Piece" type="CharacterBody2D"]
 z_index = 4

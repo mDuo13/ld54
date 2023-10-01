@@ -6,7 +6,7 @@ signal piece_move
 
 var pieces = {
 	"2" : {
-		"image" : preload("res://Assets/2_Piece.png"),
+		"image" : preload("res://assets/2_Piece.png"),
 		"vertices" : [
 			Vector2(0, 0),
 			Vector2(120, 0),
@@ -20,7 +20,7 @@ var pieces = {
 		"points" : 1
 	},
 	"3" : {
-		"image" : preload("res://Assets/3_Piece.png"),
+		"image" : preload("res://assets/3_Piece.png"),
 		"vertices" : [
 			Vector2(0, 0),
 			Vector2(120, 0),
@@ -37,7 +37,7 @@ var pieces = {
 		"points" : 1
 	},
 	"L" : {
-		"image" : preload("res://Assets/L_Piece.png"),
+		"image" : preload("res://assets/L_Piece.png"),
 		"vertices" : [
 			Vector2(0, 0),
 			Vector2(180, 0),
@@ -54,7 +54,7 @@ var pieces = {
 		"points" : 2
 	},
 	"J" : {
-		"image" : preload("res://Assets/J_Piece.png"),
+		"image" : preload("res://assets/J_Piece.png"),
 		"vertices" : [
 			Vector2(0, 0),
 			Vector2(180, 0),
@@ -71,7 +71,7 @@ var pieces = {
 		"points" : 2
 	},
 	"T" : {
-		"image" : preload("res://Assets/T_Piece.png"),
+		"image" : preload("res://assets/T_Piece.png"),
 		"vertices" : [
 			Vector2(0, 0),
 			Vector2(180, 0),
@@ -90,7 +90,7 @@ var pieces = {
 		"points" : 2
 	},
 	"S" : {
-		"image" : preload("res://Assets/S_Piece.png"),
+		"image" : preload("res://assets/S_Piece.png"),
 		"vertices" : [
 			Vector2(60, 0),
 			Vector2(180, 0),
@@ -108,7 +108,7 @@ var pieces = {
 		"points" : 2
 	},
 	"Z" : {
-		"image" : preload("res://Assets/Z_Piece.png"),
+		"image" : preload("res://assets/Z_Piece.png"),
 		"vertices" : [
 			Vector2(0, 0),
 			Vector2(120, 0),
@@ -127,7 +127,7 @@ var pieces = {
 		"points" : 2
 	},
 	"I" : {
-		"image" : preload("res://Assets/I_Piece.png"),
+		"image" : preload("res://assets/I_Piece.png"),
 		"vertices" : [
 			Vector2(0, 0),
 			Vector2(240, 0),
@@ -141,7 +141,7 @@ var pieces = {
 		"points" : 2
 	},
 	"O" : {
-		"image" : preload("res://Assets/O_Piece.png"),
+		"image" : preload("res://assets/O_Piece.png"),
 		"vertices" : [
 			Vector2(0, 0),
 			Vector2(120, 0),

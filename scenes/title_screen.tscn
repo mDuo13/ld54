@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bryv71qaxdyfo"]
 
 [ext_resource type="Script" path="res://scripts/title_screen.gd" id="1_ckygx"]
-[ext_resource type="Texture2D" uid="uid://y83b7odomixn" path="res://Assets/title.jpg" id="2_nk0ug"]
+[ext_resource type="Texture2D" uid="uid://y83b7odomixn" path="res://assets/title.jpg" id="2_c1y7o"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6cyo3"]
 bg_color = Color(0.117647, 0.117647, 0.117647, 0.886275)
@@ -82,7 +82,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("2_nk0ug")
+texture = ExtResource("2_c1y7o")
 expand_mode = 1
 
 [connection signal="pressed" from="VBoxContainer/StartButt" to="." method="_on_start_butt_pressed"]
