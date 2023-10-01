@@ -22,8 +22,10 @@ const ORTHAGONAL_DIRS = [
 
 var TILE_TYPES = {
 	"empty": Vector2(0,0),
-	"blocked": Vector2(1, 0),
-	"scoring": Vector2(2, 0),
+	"blocked": Vector2(1, 3),
+	"scoring": Vector2(1, 0),
+	"scoring_2": Vector2(2, 0),
+	"scoring_3": Vector2(3, 0),
 	"special_1": Vector2(0, 1),
 	"special_2": Vector2(1, 1),
 	"special_3": Vector2(2, 1),
@@ -39,7 +41,9 @@ const FOODS = {
 }
 
 @export var bag_contents := {
-	"scoring": 40,
+	"scoring": 13,
+	"scoring_2": 13,
+	"scoring_3": 13,
 	"special_1": 1,
 	"special_2": 1,
 	"special_3": 1
@@ -105,11 +109,10 @@ func place_blockers():
 		possible_locs.shuffle()
 		while possible_locs:
 			if not possible_locs.size():
-				print("oh shit, out of legal placements for blocker #", i)
+				print("oh no, out of legal placements for blocker #", i)
 				break
 			var loc = possible_locs.pop_back()
-			# TBD: cells2d?
-			var cells_placed = test_piece_placement(loc, blk.piece.cells, "blocked")
+			var cells_placed = test_piece_placement(loc, blk.piece.cells, "blocked", true)
 			if not cells_placed.size():
 				continue # try another loc
 			else:
@@ -224,7 +227,7 @@ func _on_input_event(_viewport, event, _shape_idx):
 		print("Encircled?:", is_encircled(map_coords))
 		#cycle_food_at(map_coords)
 
-func test_piece_placement(base_coords:Vector2i, cells2d: Array, color: String) -> Array:
+func test_piece_placement(base_coords:Vector2i, cells2d: Array, color: String, dont_overlap_specials=false) -> Array:
 	## Really the return type is Array[Vector2i] except sometimes it's empty
 	var q_change = []
 	for dy in range(cells2d.size()):
@@ -235,13 +238,16 @@ func test_piece_placement(base_coords:Vector2i, cells2d: Array, color: String) -
 			var cell_coords = base_coords + Vector2i(dx, dy)
 		
 			if oob(cell_coords):
-				print("oob piece drop @ square", cell_coords)
+				#print("oob piece drop @ square", cell_coords)
 				return []
 			if is_occupied(cell_coords):
-				print("blocked @", cell_coords)
+				#print("blocked @", cell_coords)
 				return []
 			if adacent_to_color(cell_coords, color):
-				print("adjacency problem @", cell_coords)
+				#print("adjacency problem @", cell_coords)
+				return []
+			if dont_overlap_specials and scoring_at(cell_coords) > 1:
+				#print("not supposed to overlap special @", cell_coords)
 				return []
 			q_change.append(cell_coords)
 	return q_change
@@ -269,10 +275,7 @@ func _on_piece_drop(pos: Vector2i, piece: Piece):
 	var _scored_specials = check_for_circled_specials()
 	#TODO: actually do score and animation stuff
 	
-	# snap piece's actual position & make it 
-	#piece.snap_to(60,60)
 	piece.input_pickable = false
-	piece.modulate.a = 0.4 # temp, for visibility
 	piece.remove_from_group("Unplaced Pieces")
 		
 	print(pos, piece)

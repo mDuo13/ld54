@@ -234,7 +234,7 @@ func snap_to(gridw, gridh, test_only=false):
 		Vector2i(position) / 
 		Vector2i(gridw, gridh)
 	) * Vector2i(gridw, gridh)) + from_center
-	print("snap_pos:", new_pos)
+	#print("snap_pos:", new_pos)
 	if test_only:
 		return new_pos
 	else:
