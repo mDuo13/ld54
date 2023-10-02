@@ -1,12 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://bg6xqdmqhgrtl"]
+[gd_scene load_steps=3 format=3 uid="uid://bg6xqdmqhgrtl"]
 
 [ext_resource type="Script" path="res://scripts/mute_button.gd" id="1_2nbaw"]
+[ext_resource type="FontFile" uid="uid://cxc14rk7s7t6f" path="res://assets/twemoji.ttf" id="1_ur381"]
 
 [node name="MuteButton" type="Button"]
 offset_right = 8.0
 offset_bottom = 8.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.752941)
 theme_override_constants/outline_size = 11
+theme_override_fonts/font = ExtResource("1_ur381")
 theme_override_font_sizes/font_size = 50
 text = "🔊"
 script = ExtResource("1_2nbaw")

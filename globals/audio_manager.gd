@@ -3,6 +3,7 @@ extends Node
 @onready var SPECIAL_TRACKS = [
 	$BGMSupplement1,
 	$BGMSupplement2,
+	$BGMSupplement3,
 ]
 var specials_active = 0
 
@@ -28,7 +29,7 @@ func end_game():
 	for bgm in SPECIAL_TRACKS:
 		bgm.stop()
 
-func add_bonus_track(special_name) -> void:
+func add_bonus_track(_special_name) -> void:
 	#print("scored bonus:", special_name)
 #	if special_name not in SPECIAL_TRACKS.keys():
 #		print("No addtl music track for special", special_name)

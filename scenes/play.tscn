@@ -168,13 +168,12 @@ theme_override_font_sizes/font_size = 50
 text = "Score: 0"
 
 [node name="SpinCCW" type="Button" parent="UI"]
-offset_left = 1114.0
-offset_top = 340.0
-offset_right = 1261.0
-offset_bottom = 426.0
+offset_left = 1112.0
+offset_top = 327.0
+offset_right = 1259.0
+offset_bottom = 443.0
 theme_override_font_sizes/font_size = 30
-text = "↺ 
-Rotate All"
+text = "Rotate All"
 
 [node name="TextureRect" type="TextureRect" parent="."]
 z_index = -100
