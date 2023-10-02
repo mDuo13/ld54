@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://blhd4bc8p7fdp"]
+[gd_scene load_steps=5 format=3 uid="uid://blhd4bc8p7fdp"]
 
 [ext_resource type="Texture2D" uid="uid://cjtnt7norjyl8" path="res://assets/tutorial.png" id="1_6qmie"]
 [ext_resource type="Script" path="res://scripts/tutorial.gd" id="1_hra1u"]
+[ext_resource type="PackedScene" uid="uid://bg6xqdmqhgrtl" path="res://scenes/mute_button.tscn" id="3_3uprp"]
 [ext_resource type="PackedScene" uid="uid://8tw50v3p23py" path="res://scenes/black.tscn" id="3_j00lm"]
 
 [node name="Tutorial" type="CanvasLayer"]
@@ -12,6 +13,12 @@ offset_right = 40.0
 offset_bottom = 40.0
 texture_normal = ExtResource("1_6qmie")
 stretch_mode = 0
+
+[node name="MuteButton" parent="." instance=ExtResource("3_3uprp")]
+offset_left = 1224.0
+offset_top = -1.0
+offset_right = 1280.0
+offset_bottom = 76.0
 
 [node name="Black" parent="." instance=ExtResource("3_j00lm")]
 

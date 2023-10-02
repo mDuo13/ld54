@@ -18,3 +18,4 @@ func to_score():
 
 func _on_plate_placed_piece():
 	$PassButt.disabled = false
+

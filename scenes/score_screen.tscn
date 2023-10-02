@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cow4ruwf38rrv"]
+[gd_scene load_steps=4 format=3 uid="uid://cow4ruwf38rrv"]
 
 [ext_resource type="Script" path="res://scripts/score_screen.gd" id="1_l15v6"]
 [ext_resource type="PackedScene" uid="uid://8tw50v3p23py" path="res://scenes/black.tscn" id="2_f1sx0"]
+[ext_resource type="PackedScene" uid="uid://bg6xqdmqhgrtl" path="res://scenes/mute_button.tscn" id="3_h1ib0"]
 
 [node name="ScoreScreen" type="CanvasLayer"]
 script = ExtResource("1_l15v6")
@@ -213,6 +214,12 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Black" parent="." instance=ExtResource("2_f1sx0")]
+visible = false
+
+[node name="MuteButton" parent="." instance=ExtResource("3_h1ib0")]
+offset_left = 1224.0
+offset_right = 1280.0
+offset_bottom = 77.0
 
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/OrderAgain" to="." method="_on_order_again_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer2/ToTitle" to="." method="_on_to_title_pressed"]

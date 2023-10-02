@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dmla031dku8le"]
+[gd_scene load_steps=13 format=3 uid="uid://dmla031dku8le"]
 
 [ext_resource type="Script" path="res://scripts/piece_manager.gd" id="1_luoh3"]
 [ext_resource type="Texture2D" uid="uid://bvwn3pjlddmfm" path="res://assets/Cart.png" id="2_jfjte"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/ui.gd" id="6_efioj"]
 [ext_resource type="Texture2D" uid="uid://dnol534vyevfq" path="res://assets/tablecloth.jpg" id="7_dkyu8"]
 [ext_resource type="PackedScene" uid="uid://8tw50v3p23py" path="res://scenes/black.tscn" id="8_08eq8"]
+[ext_resource type="PackedScene" uid="uid://bg6xqdmqhgrtl" path="res://scenes/mute_button.tscn" id="9_edshk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8btvs"]
 size = Vector2(600, 600)
@@ -181,6 +182,12 @@ expand_mode = 1
 stretch_mode = 1
 
 [node name="Black" parent="." instance=ExtResource("8_08eq8")]
+
+[node name="MuteButton" parent="." instance=ExtResource("9_edshk")]
+offset_left = 1223.0
+offset_top = 2.0
+offset_right = 1279.0
+offset_bottom = 79.0
 
 [connection signal="input_event" from="Plate" to="Plate" method="_on_input_event"]
 [connection signal="placed_piece" from="Plate" to="PieceManager" method="_on_plate_placed_piece"]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bryv71qaxdyfo"]
+[gd_scene load_steps=6 format=3 uid="uid://bryv71qaxdyfo"]
 
 [ext_resource type="Script" path="res://scripts/title_screen.gd" id="1_ckygx"]
 [ext_resource type="Texture2D" uid="uid://y83b7odomixn" path="res://assets/title.jpg" id="2_c1y7o"]
 [ext_resource type="PackedScene" uid="uid://8tw50v3p23py" path="res://scenes/black.tscn" id="3_aibbq"]
+[ext_resource type="PackedScene" uid="uid://bg6xqdmqhgrtl" path="res://scenes/mute_button.tscn" id="4_e0sm1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6cyo3"]
 bg_color = Color(0.117647, 0.117647, 0.117647, 0.886275)
@@ -100,6 +101,11 @@ offset_right = 0.0
 offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="MuteButton" parent="." instance=ExtResource("4_e0sm1")]
+offset_left = 1222.0
+offset_right = 1278.0
+offset_bottom = 77.0
 
 [connection signal="pressed" from="VBoxContainer/StartButt" to="." method="_on_start_butt_pressed"]
 [connection signal="pressed" from="VBoxContainer/HowToButt" to="." method="_on_how_to_butt_pressed"]
