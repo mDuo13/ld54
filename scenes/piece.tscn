@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c8ct35hekt7nb"]
+[gd_scene load_steps=4 format=3 uid="uid://c8ct35hekt7nb"]
 
 [ext_resource type="Script" path="res://scripts/piece.gd" id="1_c74nc"]
 [ext_resource type="Texture2D" uid="uid://d33xnwoinj2ew" path="res://assets/2_Piece.png" id="1_x6ncf"]
+[ext_resource type="Texture2D" uid="uid://dopmld6cgylj8" path="res://assets/rainbow_gradient.tres" id="3_x73q6"]
 
 [node name="Piece" type="CharacterBody2D"]
 z_index = 4
@@ -11,6 +12,14 @@ motion_mode = 1
 script = ExtResource("1_c74nc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+clip_children = 2
 texture = ExtResource("1_x6ncf")
+
+[node name="Rainbow" type="Sprite2D" parent="Sprite2D"]
+visible = false
+modulate = Color(1, 1, 1, 0.376471)
+position = Vector2(0.999985, 2.99998)
+scale = Vector2(2, 360)
+texture = ExtResource("3_x73q6")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]

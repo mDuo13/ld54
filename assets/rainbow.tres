@@ -1,0 +1,6 @@
+[gd_resource type="Gradient" format=3 uid="uid://dypommc2c87ov"]
+
+[resource]
+resource_name = "RainbowGradient"
+offsets = PackedFloat32Array(0, 0.179487, 0.365385, 0.580128, 0.762821, 0.916667, 1)
+colors = PackedColorArray(1, 0, 0, 1, 0.906226, 0.438163, 3.85046e-07, 1, 1, 1, 0.0784314, 1, 0, 0.780392, 0, 1, 0, 0, 1, 1, 0.472709, 0.175097, 0.453681, 1, 0.360784, 0, 0.533333, 1)

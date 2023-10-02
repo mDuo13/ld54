@@ -257,6 +257,9 @@ func lock():
 	remove_from_group("Unplaced Pieces")
 	z_index = 3
 
+func sparkle():
+	$Sprite2D/Rainbow.visible = true
+
 func _process(_delta):
 	if (mouse_over && !dragging && Input.is_action_just_pressed("select")):
 		dragging = true

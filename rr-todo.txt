@@ -1,14 +1,11 @@
 graphics wants:
 
-- s block
-- score screen splash
+- score screen pictures
 - steamer basket(s?) for pieces to sit on
 - project icon
 
 nice to have:
 
-- visual indicator for scoring regular points
-- visual indicator for scoring bonuses
 - audio levels config / mute button
 - real bgm / fix playback and transitioning w/ scenes
 - tutorial / howto screen(s)
@@ -20,6 +17,7 @@ nice to have:
 
 stretch goals:
 
+- better bonus scoring animation
 - undo button
 - randomized scoring objectives
 - more balanced board rando (e.g. don't dump all the blockers on the same side)

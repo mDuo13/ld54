@@ -34,7 +34,8 @@ var TILE_TYPES = {
 	"special_3": Vector2(2, 1),
 	"basic": Vector2(3,3),
 	"advanced": Vector2(2,3),
-	"xmark": Vector2(0,2)
+	"xmark": Vector2(0,2),
+	"shiny": Vector2(1,2)
 }
 
 const FOODS = {
@@ -52,6 +53,8 @@ const FOODS = {
 	"special_2": 1,
 	"special_3": 1
 }
+
+var SCORE_PARTICLES = preload("res://scenes/particles_1.tscn")
 
 var unscored_specials = {}
 var scored_specials = []
@@ -148,6 +151,9 @@ func put_food_at(food : String, coords: Vector2i):
 	var food_tile = TILE_TYPES[food]
 	$PlateGrid.set_cell(LAYER_FOOD, coords, TILE_SRC, food_tile)
 
+func make_shiny(coords: Vector2i):
+	$PlateGrid.set_cell(LAYER_FOOD, coords, TILE_SRC, TILE_TYPES["shiny"])
+
 func adjacent_to_color(coords: Vector2i, color: String) -> bool:
 	var color_i = FOODS[color]
 	for d in ORTHAGONAL_DIRS:
@@ -201,6 +207,8 @@ func check_for_circled_specials():
 			scored_specials[sname] = special
 			unscored_specials.erase(sname)
 			print("Woo! Scored a special @", special.coords)
+			make_shiny(special.coords)
+			animate_particles(special.coords, "special")
 			AudioManager.add_bonus_track(sname)
 			emit_signal("score_bonus", sname, special)
 
@@ -271,6 +279,7 @@ func _on_piece_drop(_pos: Vector2i, piece: Piece):
 		if scoring_at(set_coords) == 1: # Regular space, add to score
 			bump_score += piece.score_value()
 			ScoreSaver.symbols_scored += 1
+			animate_particles(set_coords, color)
 		notify_adjacent_specials(set_coords, piece)
 	if bump_score:
 		piece.points_scored = bump_score
@@ -300,6 +309,12 @@ func notify_adjacent_specials(coords, piece) -> void:
 				sp.pieces.append(piece)
 
 
+func animate_particles(coords: Vector2i, type="basic") -> void:
+	var emitter = SCORE_PARTICLES.instantiate()
+	$PlateGrid.add_child(emitter)
+	emitter.position = $PlateGrid.map_to_local(coords)
+	emitter.set_type(type)
+
 func _on_piece_move():
 	wipe_xs()
 
@@ -308,8 +323,10 @@ func _on_score_bonus(_special_name, special_deets):
 	var points_added = 0
 	for piece in special_deets.pieces:
 		points_added += piece.points_scored * (BONUS_MULTIPLIER-1)
+		piece.sparkle()
 	ScoreSaver.specials_scored += 1
 	ScoreSaver.points_from_specials += points_added
 	ScoreSaver.total_score += points_added
 	if points_added:
 		emit_signal("score_piece", points_added)
+
