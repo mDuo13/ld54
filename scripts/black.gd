@@ -2,6 +2,7 @@ extends ColorRect
 # Dunno why this doesn't work for doing fade transitions if put in Autoload
 
 func _ready():
+	visible = true
 	# fade in
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "color", Color(0.0,0.0,0.0,0.0), 0.35)

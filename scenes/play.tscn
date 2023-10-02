@@ -167,6 +167,15 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 text = "Score: 0"
 
+[node name="SpinCCW" type="Button" parent="UI"]
+offset_left = 1114.0
+offset_top = 340.0
+offset_right = 1261.0
+offset_bottom = 426.0
+theme_override_font_sizes/font_size = 30
+text = "↺ 
+Rotate All"
+
 [node name="TextureRect" type="TextureRect" parent="."]
 z_index = -100
 anchors_preset = 15
@@ -182,6 +191,7 @@ expand_mode = 1
 stretch_mode = 1
 
 [node name="Black" parent="." instance=ExtResource("8_08eq8")]
+visible = false
 
 [node name="MuteButton" parent="." instance=ExtResource("9_edshk")]
 offset_left = 1223.0
@@ -196,3 +206,4 @@ offset_bottom = 79.0
 [connection signal="score_piece" from="Plate" to="UI" method="_on_plate_score_piece"]
 [connection signal="pressed" from="UI/PassButt" to="PieceManager" method="_on_pass_butt_pressed"]
 [connection signal="pressed" from="UI/DoneButt" to="UI" method="_on_done_butt_pressed"]
+[connection signal="pressed" from="UI/SpinCCW" to="UI" method="_on_spin_ccw_pressed"]

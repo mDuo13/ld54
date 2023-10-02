@@ -269,6 +269,14 @@ func lock():
 func sparkle():
 	$Sprite2D/Rainbow.visible = true
 
+func rotate_clockwise():
+	self.rotation += PI / 2
+	cells_clockwise()
+
+func rotate_ccw():
+	self.rotation -= PI / 2
+	cells_counterclockwise()
+
 func _process(_delta):
 	if (mouse_over && !dragging && Input.is_action_just_pressed("select")):
 		dragging = true
@@ -281,12 +289,10 @@ func _process(_delta):
 			emit_signal("piece_drop", position, self)
 		dragging = false
 	if dragging == true && Input.is_action_just_pressed("rotate_clockwise"):
-		self.rotation += PI / 2
-		cells_clockwise()
+		rotate_clockwise()
 		
 	if dragging == true && Input.is_action_just_pressed("rotate_counterclockwise"):
-		self.rotation -= PI / 2
-		cells_counterclockwise()
+		rotate_ccw()
 
 func _mouse_enter():
 	mouse_over = true
