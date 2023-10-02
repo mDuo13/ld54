@@ -38,6 +38,7 @@ var pieces = {
 	},
 	"L" : {
 		"image" : preload("res://assets/L_Piece.png"),
+		"image_gray" : preload("res://assets/L_Piece_gray.png"),
 		"vertices" : [
 			Vector2(0, 0),
 			Vector2(180, 0),
@@ -55,6 +56,7 @@ var pieces = {
 	},
 	"J" : {
 		"image" : preload("res://assets/J_Piece.png"),
+		"image_gray" : preload("res://assets/J_Piece_gray.png"),
 		"vertices" : [
 			Vector2(0, 0),
 			Vector2(180, 0),
@@ -72,6 +74,7 @@ var pieces = {
 	},
 	"T" : {
 		"image" : preload("res://assets/T_Piece.png"),
+		"image_gray" : preload("res://assets/T_Piece_gray.png"),
 		"vertices" : [
 			Vector2(0, 0),
 			Vector2(180, 0),
@@ -91,6 +94,7 @@ var pieces = {
 	},
 	"S" : {
 		"image" : preload("res://assets/S_Piece.png"),
+		"image_gray" : preload("res://assets/S_Piece_gray.png"),
 		"vertices" : [
 			Vector2(60, 0),
 			Vector2(180, 0),
@@ -109,6 +113,7 @@ var pieces = {
 	},
 	"Z" : {
 		"image" : preload("res://assets/Z_Piece.png"),
+		"image_gray" : preload("res://assets/Z_Piece_gray.png"),
 		"vertices" : [
 			Vector2(0, 0),
 			Vector2(120, 0),
@@ -128,6 +133,7 @@ var pieces = {
 	},
 	"I" : {
 		"image" : preload("res://assets/I_Piece.png"),
+		"image_gray" : preload("res://assets/I_Piece_gray.png"),
 		"vertices" : [
 			Vector2(0, 0),
 			Vector2(240, 0),
@@ -142,6 +148,7 @@ var pieces = {
 	},
 	"O" : {
 		"image" : preload("res://assets/O_Piece.png"),
+		"image_gray" : preload("res://assets/O_Piece_gray.png"),
 		"vertices" : [
 			Vector2(0, 0),
 			Vector2(120, 0),
@@ -184,7 +191,9 @@ func set_piece(p: String = ""):
 	$Sprite2D.texture = piece["image"]
 	$CollisionPolygon2D.polygon = piece["vertices"]
 	$CollisionPolygon2D.position = Vector2(-cell_width()*30, -cell_height()*30)
-	
+
+func change_to_blocker():
+	$Sprite2D.texture = piece["image_gray"]
 
 func set_piece_type(t: String = ""):
 	if not t:
@@ -209,7 +218,7 @@ func cells_counterclockwise():
 		for x in range(len(piece["cells"][0])):
 			matrix[len(piece["cells"][0]) - x - 1][y] = piece["cells"][y][x]
 	piece["cells"] = matrix
-	print_matrix(piece["cells"])
+	#print_matrix(piece["cells"])
 
 func cells_clockwise():
 	cells_counterclockwise()

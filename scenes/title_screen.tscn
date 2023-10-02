@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bryv71qaxdyfo"]
+[gd_scene load_steps=5 format=3 uid="uid://bryv71qaxdyfo"]
 
 [ext_resource type="Script" path="res://scripts/title_screen.gd" id="1_ckygx"]
 [ext_resource type="Texture2D" uid="uid://y83b7odomixn" path="res://assets/title.jpg" id="2_c1y7o"]
+[ext_resource type="PackedScene" uid="uid://8tw50v3p23py" path="res://scenes/black.tscn" id="3_aibbq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6cyo3"]
 bg_color = Color(0.117647, 0.117647, 0.117647, 0.886275)
@@ -31,7 +32,6 @@ text = "Start Game"
 [node name="HowToButt" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-disabled = true
 text = "How to Play"
 
 [node name="QuitButt" type="Button" parent="VBoxContainer"]
@@ -40,29 +40,34 @@ theme_override_font_sizes/font_size = 30
 text = "Quit"
 
 [node name="MainTitle" type="Label" parent="."]
-offset_left = 370.0
-offset_top = 87.0
-offset_right = 951.0
-offset_bottom = 200.0
+anchors_preset = -1
+anchor_top = 0.1
+anchor_bottom = 0.1
+offset_right = 1280.0
+offset_bottom = 128.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 80
 text = "Delicious Sums"
+horizontal_alignment = 1
 
 [node name="Subtitle" type="Label" parent="MainTitle"]
 layout_mode = 0
 offset_left = 7.0
 offset_top = 97.0
-offset_right = 574.0
+offset_right = 1287.0
 offset_bottom = 123.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "A game about dim sum for Ludum Dare 54: Limited Space"
 horizontal_alignment = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = 815.0
-offset_top = 443.0
-offset_right = 959.0
-offset_bottom = 659.0
+anchors_preset = -1
+anchor_left = 0.63
+anchor_top = 0.61
+anchor_right = 0.7
+anchor_bottom = 0.9
+offset_right = 144.0
+offset_bottom = 216.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
 text = "[b]Game Design & 
@@ -87,5 +92,15 @@ mouse_filter = 2
 texture = ExtResource("2_c1y7o")
 expand_mode = 1
 
+[node name="Black" parent="." instance=ExtResource("3_aibbq")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [connection signal="pressed" from="VBoxContainer/StartButt" to="." method="_on_start_butt_pressed"]
+[connection signal="pressed" from="VBoxContainer/HowToButt" to="." method="_on_how_to_butt_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitButt" to="." method="_on_quit_butt_pressed"]

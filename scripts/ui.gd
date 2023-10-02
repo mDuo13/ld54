@@ -10,6 +10,9 @@ func _on_plate_score_piece(add_score):
 func _on_done_butt_pressed():
 	#get_tree().reload_current_scene() # TODO: actually code a score screen
 	AudioManager.end_game()
+	get_node("../Black").do_fade_then(to_score)
+
+func to_score():
 	get_tree().change_scene_to_file("res://scenes/score_screen.tscn")
 
 

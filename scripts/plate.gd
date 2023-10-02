@@ -109,6 +109,7 @@ func place_blockers():
 	for i in range(BLOCKER_COUNT):
 		# Place "advanced" pieces as blockers
 		var blk = get_node("../PieceManager").make_piece_at(OFFSCREEN, "advanced")
+		blk.change_to_blocker()
 		var possible_locs = []
 		for x in range(GRID_WIDTH):
 			for y in range(GRID_HEIGHT):
@@ -222,7 +223,7 @@ func _on_input_event(_viewport, event, _shape_idx):
 		#cycle_food_at(map_coords)
 
 
-func test_piece_placement(base_coords:Vector2i, cells2d: Array, color: String, dont_overlap_specials=false) -> Array:
+func test_piece_placement(base_coords:Vector2i, cells2d: Array, color: String, dont_overlap_specials=true) -> Array:
 	## Really the return type is Array[Vector2i] except sometimes it's empty
 	var q_change = []
 	var failed_check = false
@@ -285,15 +286,16 @@ func _on_piece_drop(_pos: Vector2i, piece: Piece):
 		piece.points_scored = bump_score
 		ScoreSaver.total_score += bump_score
 		if piece.piece.type == "basic":
+			AudioManager.sfx(AudioManager.DING_SM)
 			ScoreSaver.sweets_scored += bump_score
 		else: #piece.piece.type=="advanced"
 			ScoreSaver.savory_scored += bump_score
+			AudioManager.sfx(AudioManager.DING_MD)
 		emit_signal("score_piece", bump_score)
-	emit_signal("placed_piece")
-	
 	check_for_circled_specials()
 	piece.lock()
-
+	emit_signal("placed_piece")
+	
 
 func coords_adjacent(v1: Vector2i, v2: Vector2i):
 	return (abs(v2-v1) <= Vector2i(1,1))
@@ -327,6 +329,7 @@ func _on_score_bonus(_special_name, special_deets):
 	ScoreSaver.specials_scored += 1
 	ScoreSaver.points_from_specials += points_added
 	ScoreSaver.total_score += points_added
+	AudioManager.sfx(AudioManager.DING_LG)
 	if points_added:
 		emit_signal("score_piece", points_added)
 

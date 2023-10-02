@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cow4ruwf38rrv"]
+[gd_scene load_steps=3 format=3 uid="uid://cow4ruwf38rrv"]
 
 [ext_resource type="Script" path="res://scripts/score_screen.gd" id="1_l15v6"]
+[ext_resource type="PackedScene" uid="uid://8tw50v3p23py" path="res://scenes/black.tscn" id="2_f1sx0"]
 
 [node name="ScoreScreen" type="CanvasLayer"]
 script = ExtResource("1_l15v6")
@@ -210,6 +211,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
+
+[node name="Black" parent="." instance=ExtResource("2_f1sx0")]
 
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/OrderAgain" to="." method="_on_order_again_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer2/ToTitle" to="." method="_on_to_title_pressed"]

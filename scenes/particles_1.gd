@@ -1,7 +1,7 @@
 extends GPUParticles2D
 
 const COLOR_BASIC = Color("#42bbff")
-const COLOR_ADVANCED = Color("#ffcb3e")
+const COLOR_ADVANCED = Color("#9c7751")#slightly darker/more visible than their main, Color("#ffcb3e")
 const COLOR_RAINBOW = preload("res://assets/rainbow.tres")
 
 @onready var countdown = lifetime

@@ -2,18 +2,16 @@ graphics wants:
 
 - score screen pictures
 - steamer basket(s?) for pieces to sit on
-- project icon
 
 nice to have:
 
 - audio levels config / mute button
 - real bgm / fix playback and transitioning w/ scenes
-- tutorial / howto screen(s)
-- sfx
+- more sfx?
+- a way to rotate on mobile
 - playable on macos / ios
 - game balance
     - risk of having new blockers dropped on you?
-- fade effect on scene transition
 
 stretch goals:
 
@@ -21,7 +19,6 @@ stretch goals:
 - undo button
 - randomized scoring objectives
 - more balanced board rando (e.g. don't dump all the blockers on the same side)
-- animate cart loading in
 - set/load a given board seed
 - detect when the player literally can't play/score more
 

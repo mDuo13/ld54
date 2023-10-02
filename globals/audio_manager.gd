@@ -8,6 +8,11 @@ extends Node
 
 var active_tweens = []
 
+const OMNOMNOM = preload("res://assets/audio/omnomnom.ogg")
+const DING_SM = preload("res://assets/audio/ding-sm.ogg")
+const DING_MD = preload("res://assets/audio/ding-md.ogg")
+const DING_LG = preload("res://assets/audio/ding-lg.ogg")
+
 func start_game():
 	$MainBGM.play()
 	for bgm_n in SPECIAL_TRACKS:
@@ -31,3 +36,18 @@ func add_bonus_track(special_name) -> void:
 	var tween = get_tree().create_tween()
 	tween.tween_property(track, "volume_db", 0, 2)
 	active_tweens.append(tween)
+
+func play_title_music() -> void:
+	if not $Ambient2.playing:
+		var tween = get_tree().create_tween()
+		tween.tween_property($Ambient2, "volume_db", -20, 1.0)
+		$Ambient2.play()
+
+func sfx(res):
+	$SFXPlayer.stream = res
+	$SFXPlayer.play()
+
+func stop_title_music():
+	var tween = get_tree().create_tween()
+	tween.tween_property($Ambient2, "volume_db", -80, 1.0)
+	tween.tween_callback($Ambient2.stop)

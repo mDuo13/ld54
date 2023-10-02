@@ -10,6 +10,7 @@ func _ready():
 	$HBoxContainer/VBoxContainer2/Savory.text = string_score(ScoreSaver.savory_scored, 45)
 	$HBoxContainer/VBoxContainer2/TurnsTaken.text = string_score(ScoreSaver.turns)
 	$HBoxContainer/VBoxContainer2/TotalScore.text = string_score(ScoreSaver.total_score, 20)
+	AudioManager.sfx(AudioManager.OMNOMNOM)
 	
 func string_score(i: int, pad_amount=35) -> String:
 	var s = "%*d" % [pad_amount, i]
@@ -18,8 +19,8 @@ func string_score(i: int, pad_amount=35) -> String:
 
 
 func _on_order_again_pressed():
-	get_tree().change_scene_to_file("res://scenes/play.tscn")
+	$Black.fade_to_scene("res://scenes/play.tscn")
 
 
 func _on_to_title_pressed():
-	get_tree().change_scene_to_file("res://scenes/title_screen.tscn")
+	$Black.fade_to_scene("res://scenes/title_screen.tscn")

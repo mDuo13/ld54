@@ -1,12 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://dmla031dku8le"]
+[gd_scene load_steps=12 format=3 uid="uid://dmla031dku8le"]
 
 [ext_resource type="Script" path="res://scripts/piece_manager.gd" id="1_luoh3"]
 [ext_resource type="Texture2D" uid="uid://bvwn3pjlddmfm" path="res://assets/Cart.png" id="2_jfjte"]
 [ext_resource type="Script" path="res://scripts/plate.gd" id="3_li54b"]
 [ext_resource type="Texture2D" uid="uid://cqpvf6ol0iv1u" path="res://assets/board_tiles.png" id="4_vv0ft"]
 [ext_resource type="Texture2D" uid="uid://b8yp3ihvvmub2" path="res://assets/plate_bg.png" id="5_sm288"]
-[ext_resource type="Script" path="res://scenes/ui.gd" id="6_f4r8g"]
+[ext_resource type="Script" path="res://scripts/ui.gd" id="6_efioj"]
 [ext_resource type="Texture2D" uid="uid://dnol534vyevfq" path="res://assets/tablecloth.jpg" id="7_dkyu8"]
+[ext_resource type="PackedScene" uid="uid://8tw50v3p23py" path="res://scenes/black.tscn" id="8_08eq8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8btvs"]
 size = Vector2(600, 600)
@@ -137,7 +138,7 @@ centered = false
 offset = Vector2(-20, -20)
 
 [node name="UI" type="CanvasLayer" parent="."]
-script = ExtResource("6_f4r8g")
+script = ExtResource("6_efioj")
 
 [node name="PassButt" type="Button" parent="UI"]
 offset_left = 1115.0
@@ -179,7 +180,10 @@ texture = ExtResource("7_dkyu8")
 expand_mode = 1
 stretch_mode = 1
 
+[node name="Black" parent="." instance=ExtResource("8_08eq8")]
+
 [connection signal="input_event" from="Plate" to="Plate" method="_on_input_event"]
+[connection signal="placed_piece" from="Plate" to="PieceManager" method="_on_plate_placed_piece"]
 [connection signal="placed_piece" from="Plate" to="UI" method="_on_plate_placed_piece"]
 [connection signal="score_bonus" from="Plate" to="Plate" method="_on_score_bonus"]
 [connection signal="score_piece" from="Plate" to="UI" method="_on_plate_score_piece"]
