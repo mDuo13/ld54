@@ -7,7 +7,7 @@ A puzzle game with dim sum. Fit dim sum onto your plate cleverly to score as man
 Built with Godot 4.1.1. All assets other than fonts and the game engine are original and were created during the jam.
 
 Team members:
-chicken nugget
+Audrey Pompom
 MagicHatJo
 mDuo13
 pointblanket
